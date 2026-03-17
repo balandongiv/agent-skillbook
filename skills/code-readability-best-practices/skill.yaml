@@ -1,0 +1,31 @@
+slug: code-readability-best-practices
+title: Code Readability Best Practices
+summary: Review and refactor code for top-down readability by reorganizing functions, grouping related helpers, and rewriting noisy comments without changing behavior.
+when_to_use:
+  - when reorganizing functions so code reads top-down
+  - when improving code readability without changing behavior
+  - when reviewing code structure and comment quality
+  - when coaching a developer on practical readability rules
+when_not_to_use:
+  - when the task requires changing business logic or architecture
+  - when the request is only about formatting, linting, or syntax fixes
+  - when comments must preserve legal, compliance, or generated documentation text
+tags:
+  - readability
+  - refactoring
+  - code-review
+  - comments
+  - maintainability
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
+

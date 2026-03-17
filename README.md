@@ -59,6 +59,7 @@ agent-skillbook/
 │   │       └── gemini/
 │   │           ├── GEM_INSTRUCTIONS.md
 │   │           └── SETUP.md
+│   ├── code-readability-best-practices/
 │   ├── good-description-writing/
 │   └── repo-readme-writing/
 ├── docs/                            ← Guides and documentation
@@ -160,7 +161,12 @@ python -m agent_skillbook.cli list
 
 Output:
 ```
-Found 3 skill(s):
+Found 4 skill(s):
+
+  code-readability-best-practices
+    Title:   Code Readability Best Practices
+    Summary: Review and refactor code for top-down readability by reorganizing functions...
+    Tags:    readability, refactoring, code-review, comments, maintainability
 
   good-function-design
     Title:   Good Function Design
@@ -273,7 +279,10 @@ Full guide: [docs/description-writing-guide.md](docs/description-writing-guide.m
 
 ## Starter skills
 
-This repository includes three starter skills to demonstrate the format and provide immediate value:
+This repository includes four starter skills to demonstrate the format and provide immediate value:
+
+### `code-readability-best-practices`
+Teaches agents how to review or refactor code so it reads top-down and stays easy to scan. Covers: headline-first function ordering, grouping helpers by concern, keeping related functions close together, rewriting vague comments, removing stale comment history, and replacing markup-heavy comments with plain text.
 
 ### `good-function-design`
 Teaches agents how to write Python functions that are small, readable, and testable. Covers: single responsibility, descriptive naming, explicit parameters, pure functions, docstrings, and common antipatterns (god functions, mutable defaults).
