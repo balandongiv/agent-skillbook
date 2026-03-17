@@ -1,0 +1,29 @@
+slug: good-description-writing
+title: Good Description Writing
+summary: Write precise, specific descriptions for agent skills, tools, and functions so that AI agents can route to them accurately.
+when_to_use:
+  - when writing a skill description or summary
+  - when a skill is not being triggered correctly
+  - when defining a tool description for an AI agent
+  - when writing function docstrings that serve as routing hints
+when_not_to_use:
+  - when writing user-facing documentation
+  - when writing long-form prose
+  - when the audience is a human reader only
+tags:
+  - descriptions
+  - prompt-engineering
+  - agent-skills
+  - routing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
