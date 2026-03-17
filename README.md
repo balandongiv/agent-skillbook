@@ -2,7 +2,7 @@
 
 **Reusable custom skills for agents, with templates and guides.**
 
-Status: Active | Version: 0.1.0 | License: MIT | Python: >=3.9
+Status: Active | Version: 0.1.2 | License: MIT | Python: >=3.9
 
 ---
 
@@ -61,6 +61,7 @@ agent-skillbook/
 │   │           └── SETUP.md
 │   ├── code-readability-best-practices/
 │   ├── good-description-writing/
+│   ├── python-class-and-filename/
 │   └── repo-readme-writing/
 ├── docs/                            ← Guides and documentation
 │   ├── beginner-guide.md
@@ -161,7 +162,7 @@ python -m agent_skillbook.cli list
 
 Output:
 ```
-Found 4 skill(s):
+Found 5 skill(s):
 
   code-readability-best-practices
     Title:   Code Readability Best Practices
@@ -240,7 +241,12 @@ agent-skillbook show good-function-design
    pytest tests/ -v
    ```
 
-10. **Commit all files** — canonical files and generated exports together.
+10. **Update versioning metadata:**
+    - Add an entry to the skill's `CHANGELOG.md` under `## [Unreleased]`
+    - Add an entry to the root `CHANGELOG.md` under `## [Unreleased]`
+    - If this change is part of a release, bump the version in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line together
+
+11. **Commit all files** — canonical files and generated exports together.
 
 ---
 
@@ -252,6 +258,15 @@ agent-skillbook show good-function-design
 4. Test: `pytest tests/ -v`
 5. Update `CHANGELOG.md` in the skill directory
 6. Commit
+
+### Versioning policy
+
+Treat versioning in two layers:
+
+- **Every change:** record it under the relevant `## [Unreleased]` section in the skill changelog and the root `CHANGELOG.md`
+- **Every release:** bump the package version in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line together
+
+The validator checks that these package version fields stay synchronized and that each skill changelog includes an `## [Unreleased]` section. This makes agents and contributors aware of versioning expectations before a change is committed.
 
 Full workflow details: [docs/update-workflow.md](docs/update-workflow.md)
 
@@ -279,7 +294,7 @@ Full guide: [docs/description-writing-guide.md](docs/description-writing-guide.m
 
 ## Starter skills
 
-This repository includes four starter skills to demonstrate the format and provide immediate value:
+This repository includes five starter skills to demonstrate the format and provide immediate value:
 
 ### `code-readability-best-practices`
 Teaches agents how to review or refactor code so it reads top-down and stays easy to scan. Covers: headline-first function ordering, grouping helpers by concern, keeping related functions close together, rewriting vague comments, removing stale comment history, and replacing markup-heavy comments with plain text.
@@ -289,6 +304,9 @@ Teaches agents how to write Python functions that are small, readable, and testa
 
 ### `good-description-writing`
 Teaches agents how to write routing-optimized descriptions for skills, tools, and functions. Critical for AI agent systems where the description is the primary routing signal. Covers the description formula, bad vs good examples, and testing descriptions.
+
+### `python-class-and-filename`
+Teaches agents how to create focused Python classes and choose matching `snake_case.py` filenames. Covers: one main class per file, responsibility-based module naming, converting `PascalCase` class names into readable filenames, avoiding vague modules like `utils.py`, and deciding when a stateless module should stay function-oriented instead of class-based.
 
 ### `repo-readme-writing`
 Teaches agents how to write beginner-friendly GitHub README files. Covers required sections, writing for a newcomer audience, quick start sections, working code examples, and avoiding jargon.

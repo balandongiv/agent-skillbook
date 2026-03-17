@@ -1,0 +1,32 @@
+slug: python-class-and-filename
+title: Creating a Python Class and Choosing the Right Python Filename
+summary: Create focused Python classes and choose matching snake_case module filenames when adding or refactoring class-based code.
+when_to_use:
+  - when creating a new Python class
+  - when deciding whether code should be a class or a function module
+  - when naming or renaming a Python file that contains one main class
+  - when reviewing imports, module names, and repository organization
+when_not_to_use:
+  - when the task is package-level architecture or dependency design
+  - when the file is intentionally function-oriented and has no main class
+  - when the request is about non-Python naming conventions
+tags:
+  - python
+  - classes
+  - modules
+  - filenames
+  - naming
+  - project-structure
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
+

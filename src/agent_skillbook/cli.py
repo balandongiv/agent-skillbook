@@ -22,12 +22,24 @@ def cmd_list(args):
 
 
 def cmd_validate(args):
-    from .validators import validate_all_skills
+    from .validators import validate_all_skills, validate_repository_versioning
     results = validate_all_skills(SKILLS_DIR)
-    if not results:
+    repo_root = SKILLS_DIR.parent
+    repo_ok, repo_errors = validate_repository_versioning(repo_root)
+
+    if not results and repo_ok:
         print("No skills found.")
         return
+
     all_ok = True
+    if repo_ok:
+        print("  OK  repository-versioning")
+    else:
+        all_ok = False
+        print("  FAIL  repository-versioning")
+        for error in repo_errors:
+            print(f"        - {error}")
+
     for name, result in results.items():
         if result["ok"]:
             print(f"  OK  {name}")
@@ -38,7 +50,8 @@ def cmd_validate(args):
                 print(f"        - {error}")
     print()
     if all_ok:
-        print("All skills valid.")
+        print("All skills valid. Version metadata is consistent.")
+        print("Reminder: record edits under the relevant [Unreleased] changelog section, and bump package versions together when cutting a release.")
     else:
         print("Validation failed. See errors above.")
         sys.exit(1)

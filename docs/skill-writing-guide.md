@@ -138,6 +138,8 @@ Skills drift over time. Here are practices that help:
 
 1. **Update CHANGELOG.md with every change.** Even small wording changes. This makes it easy to understand why a skill evolved.
 
+   Use an `## [Unreleased]` section for ongoing changes. When you cut a repository release, move those notes into a dated semantic version section.
+
 2. **Add a test prompt for every bug.** If a skill fires incorrectly or fails to fire, add a test prompt that captures the case. This prevents the same bug from returning.
 
 3. **Review the description periodically.** As your use cases change, the routing description may need updating.
@@ -145,3 +147,6 @@ Skills drift over time. Here are practices that help:
 4. **Keep instructions DRY.** If two skills share a lot of instructions, consider extracting shared principles into a documentation page rather than duplicating them.
 
 5. **Use the validator.** Run `agent-skillbook validate` before every commit. It catches common issues automatically.
+
+   The validator also checks version awareness: each skill changelog must include `## [Unreleased]`, and the repository version must stay synchronized across `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line.
+

@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- No unreleased changes yet.
+
+## [0.1.2] - 2026-03-17
+
 ### Added
 - New starter skill: `code-readability-best-practices`
+- New starter skill: `python-class-and-filename`
 - Canonical guidance for top-down function organization, helper grouping, and comment cleanup without changing behavior
+- Canonical guidance for choosing when to use a Python class, matching it to a responsibility-based module filename, and avoiding vague module names
+- Validation now checks synchronized repository version metadata and requires `## [Unreleased]` sections in skill changelogs
+- Contributor and agent workflow docs now spell out when to update unreleased changelog entries versus when to bump release versions
 
 ## [0.1.0] - 2024-01-01
 

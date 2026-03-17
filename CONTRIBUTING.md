@@ -48,7 +48,7 @@ Thank you for contributing to **agent-skillbook**! This guide explains the rules
 
 7. **Write `TESTS.md`.** Include at least five test prompts — natural language phrases that should trigger this skill when typed into an AI agent.
 
-8. **Write `CHANGELOG.md`.** Start with `## [0.1.0] - YYYY-MM-DD` and a note about the initial version.
+8. **Write `CHANGELOG.md`.** Start with an `## [Unreleased]` section, then add `## [0.1.0] - YYYY-MM-DD` and a note about the initial version.
 
 9. **Add `resources/notes.md`** with any reference links, research notes, or extra context.
 
@@ -98,7 +98,12 @@ Thank you for contributing to **agent-skillbook**! This guide explains the rules
 
 3. **Validate and test** before committing.
 
-4. **Update `CHANGELOG.md`** in the skill directory to note the change.
+4. **Update `CHANGELOG.md`** in the skill directory under `## [Unreleased]`, and update the root `CHANGELOG.md` under `## [Unreleased]` as well.
+
+5. **If you are preparing a release, bump the package version everywhere it appears:**
+   - `pyproject.toml`
+   - `src/agent_skillbook/__init__.py`
+   - the version shown in `README.md`
 
 ---
 
@@ -154,8 +159,16 @@ Every pull request that changes a skill **must** update both:
 - The skill's own `CHANGELOG.md` (under `skills/<slug>/`)
 - The root `CHANGELOG.md`
 
+For normal in-progress work, add entries under `## [Unreleased]`.
+When you cut a release, move the unreleased notes into a dated semantic version section and bump the package version metadata in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` together.
+
 Follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format:
 ```markdown
+## [Unreleased]
+
+### Changed
+- Clarified routing examples for a new edge case
+
 ## [0.2.0] - YYYY-MM-DD
 
 ### Changed
@@ -178,7 +191,9 @@ Validation checks:
 - Folder name is lowercase kebab-case
 - `skill.yaml` exists and has all required fields
 - `INSTRUCTIONS.md`, `EXAMPLES.md`, `TESTS.md`, `CHANGELOG.md` exist
+- Each skill `CHANGELOG.md` has an `## [Unreleased]` section and at least one semantic-version release heading
 - All exports exist and are not empty
+- `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` agree on the current package version
 
 ---
 

@@ -2,6 +2,11 @@
 
 All notable changes to this skill are documented here.
 
+## [Unreleased]
+
+### Changed
+- No unreleased changes yet.
+
 ## [0.1.0] - YYYY-MM-DD
 
 ### Added

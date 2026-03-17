@@ -90,20 +90,39 @@ All tests must pass. If a test fails:
 - Investigate whether the test expectation is wrong or the skill content is wrong
 - Fix the root cause, not just the test assertion
 
-### Step 7: Update CHANGELOG.md
+### Step 7: Update versioning metadata
 
-Update the skill's `CHANGELOG.md`:
+For every change, update the skill's `CHANGELOG.md` under `## [Unreleased]`:
 
 ```markdown
+## [Unreleased]
+
+### Changed
+- Clarified rule about side effects in helper functions
+
 ## [0.2.0] - YYYY-MM-DD
 
 ### Changed
 - Updated INSTRUCTIONS.md to clarify rule about side effects
 ```
 
-Also update the root `CHANGELOG.md`.
+Also update the root `CHANGELOG.md` under `## [Unreleased]`.
 
-### Step 8: Commit
+If the change is part of a release, bump the package version in all three places together:
+
+- `pyproject.toml`
+- `src/agent_skillbook/__init__.py`
+- the status line in `README.md`
+
+### Step 8: Run validation one more time
+
+```bash
+python -m agent_skillbook.cli validate
+```
+
+The validator now checks both skill changelog structure and repository version consistency. Do not commit until it passes.
+
+### Step 9: Commit
 
 Commit all changed files together:
 
@@ -131,7 +150,11 @@ agent-skillbook validate (again)
        ↓
 pytest tests/
        ↓
-Update CHANGELOG.md
+Update [Unreleased] changelog entries
+       ↓
+Sync release version files if needed
+       ↓
+agent-skillbook validate
        ↓
 git commit
 ```

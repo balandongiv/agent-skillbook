@@ -1,4 +1,4 @@
-"""Validators for canonical skill files."""
+"""Validators for canonical skill files and repository version metadata."""
 import re
 from pathlib import Path
 from typing import List, Tuple
@@ -6,8 +6,25 @@ from typing import List, Tuple
 REQUIRED_FILES = ["skill.yaml", "INSTRUCTIONS.md", "EXAMPLES.md", "TESTS.md", "CHANGELOG.md"]
 REQUIRED_YAML_FIELDS = ["slug", "title", "summary", "when_to_use", "when_not_to_use", "tags", "invocation"]
 KEBAB_CASE_RE = re.compile(r"^[a-z][a-z0-9-]*$")
+SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
+CHANGELOG_RELEASE_RE = re.compile(r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}$", re.MULTILINE)
+PYPROJECT_VERSION_RE = re.compile(r'^version\s*=\s*"([^"]+)"\s*$', re.MULTILINE)
+INIT_VERSION_RE = re.compile(r'^__version__\s*=\s*"([^"]+)"\s*$', re.MULTILINE)
+README_VERSION_RE = re.compile(r'^Status:\s.*\|\sVersion:\s([^\s|]+)\s\|', re.MULTILINE)
 
 ValidationResult = Tuple[bool, List[str]]
+
+
+def _extract_with_regex(path: Path, pattern: re.Pattern[str], label: str) -> Tuple[str, List[str]]:
+    if not path.exists():
+        return "", [f"Missing required file: {path.name}"]
+
+    text = path.read_text(encoding="utf-8")
+    match = pattern.search(text)
+    if not match:
+        return "", [f"Could not find {label} in {path.name}"]
+
+    return match.group(1), []
 
 
 def validate_skill_dir_name(skill_dir: Path) -> ValidationResult:
@@ -39,6 +56,28 @@ def validate_yaml_fields(skill_dir: Path) -> ValidationResult:
     return len(errors) == 0, errors
 
 
+def validate_skill_changelog(skill_dir: Path) -> ValidationResult:
+    errors = []
+    changelog_path = skill_dir / "CHANGELOG.md"
+    if not changelog_path.exists():
+        return False, ["CHANGELOG.md not found"]
+
+    text = changelog_path.read_text(encoding="utf-8")
+
+    if "## [Unreleased]" not in text:
+        errors.append("CHANGELOG.md must contain an '## [Unreleased]' section for pending changes")
+
+    releases = CHANGELOG_RELEASE_RE.findall(text)
+    if not releases:
+        errors.append("CHANGELOG.md must contain at least one released version heading like '## [0.1.0] - YYYY-MM-DD'")
+    else:
+        invalid_versions = [version for version in releases if not SEMVER_RE.match(version)]
+        if invalid_versions:
+            errors.append(f"CHANGELOG.md contains invalid semantic versions: {', '.join(invalid_versions)}")
+
+    return len(errors) == 0, errors
+
+
 def validate_exports(skill_dir: Path) -> ValidationResult:
     errors = []
     exports_dir = skill_dir / "exports"
@@ -57,10 +96,64 @@ def validate_exports(skill_dir: Path) -> ValidationResult:
 
 def validate_skill(skill_dir: Path) -> ValidationResult:
     all_errors = []
-    for validator in [validate_skill_dir_name, validate_required_files, validate_yaml_fields, validate_exports]:
+    for validator in [
+        validate_skill_dir_name,
+        validate_required_files,
+        validate_yaml_fields,
+        validate_skill_changelog,
+        validate_exports,
+    ]:
         ok, errors = validator(skill_dir)
         all_errors.extend(errors)
     return len(all_errors) == 0, all_errors
+
+
+def validate_repository_versioning(repo_root: Path) -> ValidationResult:
+    errors = []
+
+    pyproject_version, pyproject_errors = _extract_with_regex(
+        repo_root / "pyproject.toml",
+        PYPROJECT_VERSION_RE,
+        "project.version",
+    )
+    errors.extend(pyproject_errors)
+
+    init_version, init_errors = _extract_with_regex(
+        repo_root / "src" / "agent_skillbook" / "__init__.py",
+        INIT_VERSION_RE,
+        "__version__",
+    )
+    errors.extend(init_errors)
+
+    readme_version, readme_errors = _extract_with_regex(
+        repo_root / "README.md",
+        README_VERSION_RE,
+        "README status version",
+    )
+    errors.extend(readme_errors)
+
+    root_changelog = repo_root / "CHANGELOG.md"
+    if not root_changelog.exists():
+        errors.append("Missing required file: CHANGELOG.md")
+    else:
+        changelog_text = root_changelog.read_text(encoding="utf-8")
+        if "## [Unreleased]" not in changelog_text:
+            errors.append("Root CHANGELOG.md must contain an '## [Unreleased]' section")
+
+    if pyproject_version and not SEMVER_RE.match(pyproject_version):
+        errors.append(f"pyproject.toml version '{pyproject_version}' must use semantic versioning (X.Y.Z)")
+
+    if pyproject_version and init_version and pyproject_version != init_version:
+        errors.append(
+            f"Version mismatch: pyproject.toml has {pyproject_version} but src/agent_skillbook/__init__.py has {init_version}"
+        )
+
+    if pyproject_version and readme_version and pyproject_version != readme_version:
+        errors.append(
+            f"Version mismatch: pyproject.toml has {pyproject_version} but README.md shows {readme_version}"
+        )
+
+    return len(errors) == 0, errors
 
 
 def validate_all_skills(skills_dir: Path) -> dict:
