@@ -1,0 +1,3 @@
+name: good-description-writing
+description: Write precise, specific descriptions for agent skills, tools, and functions so that AI agents can route to them accurately.
+instructions_file: ../SKILL.md

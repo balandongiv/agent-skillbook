@@ -1,0 +1,3 @@
+name: good-function-design
+description: Write small, readable, testable Python functions with clear names and explicit inputs and outputs.
+instructions_file: ../SKILL.md

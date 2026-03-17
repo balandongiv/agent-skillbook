@@ -1,0 +1,29 @@
+slug: repo-readme-writing
+title: Repo README Writing
+summary: Write clear, structured, beginner-friendly README files for GitHub repositories that explain purpose, setup, and usage.
+when_to_use:
+  - when creating a new repository README
+  - when a README is missing key sections
+  - when a README is hard for beginners to follow
+  - when updating a README after major changes
+when_not_to_use:
+  - when writing internal wiki documentation
+  - when writing API reference docs
+  - when the audience is only experienced developers who know the project
+tags:
+  - documentation
+  - readme
+  - github
+  - beginner-friendly
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

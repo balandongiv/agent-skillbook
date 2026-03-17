@@ -1,0 +1,29 @@
+slug: good-function-design
+title: Good Function Design
+summary: Write small, readable, testable Python functions with clear names and explicit inputs and outputs.
+when_to_use:
+  - when writing a new function
+  - when refactoring a large function
+  - when reviewing Python function quality
+  - when a function is hard to test
+when_not_to_use:
+  - when the task is architecture-level design
+  - when only formatting or style changes are needed
+  - when the function must be a class method for framework reasons
+tags:
+  - python
+  - functions
+  - readability
+  - testing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

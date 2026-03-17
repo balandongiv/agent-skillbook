@@ -1,0 +1,24 @@
+slug: template-skill-name
+title: Template Skill Name
+summary: One-sentence description of what this skill does and when to use it.
+when_to_use:
+  - when you need to...
+  - when the task involves...
+when_not_to_use:
+  - when the task is...
+  - when only...
+tags:
+  - tag1
+  - tag2
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
