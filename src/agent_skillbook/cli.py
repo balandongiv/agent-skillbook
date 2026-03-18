@@ -59,15 +59,23 @@ def cmd_validate(args):
 
 def cmd_render(args):
     import subprocess
+    from .registry import list_skills
     tools_dir = Path(__file__).parent.parent.parent / "tools"
     scripts = ["render_openai_skill.py", "render_claude_skill.py", "render_gemini_gem.py"]
-    for script in scripts:
-        script_path = tools_dir / script
-        if script_path.exists():
-            result = subprocess.run([sys.executable, str(script_path)] + (args[1:] if len(args) > 1 else []))
-            if result.returncode != 0:
-                print(f"Error running {script}")
-                sys.exit(1)
+
+    if len(args) > 1:
+        render_targets = [args[1:]]
+    else:
+        render_targets = [[str(skill.path)] for skill in list_skills(SKILLS_DIR)]
+
+    for target_args in render_targets:
+        for script in scripts:
+            script_path = tools_dir / script
+            if script_path.exists():
+                result = subprocess.run([sys.executable, str(script_path)] + target_args)
+                if result.returncode != 0:
+                    print(f"Error running {script}")
+                    sys.exit(1)
     print("Render complete.")
 
 

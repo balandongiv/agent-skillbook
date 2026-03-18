@@ -1,4 +1,4 @@
-# Gemini Gem Setup Guide: Repo README Writing
+# Gemini Gem Setup Guide: Creating a Python Class and Choosing the Right Python Filename
 
 This guide walks you through creating a Gemini Gem for this skill.
 
@@ -29,7 +29,7 @@ Click the **New gem** button or the "+" icon.
 
 ### Step 4: Name your Gem
 
-Enter the name: **Repo README Writing**
+Enter the name: **Creating a Python Class and Choosing the Right Python Filename**
 
 ### Step 5: Add instructions
 
@@ -40,7 +40,7 @@ Open `GEM_INSTRUCTIONS.md` from this directory. Copy the full content (after the
 Click **Save** to create the Gem.
 ### Step 7: Test your Gem
 
-Open your new Gem and try a few of the test prompts from `skills/repo-readme-writing/TESTS.md` to verify it is working correctly.
+Open your new Gem and try a few of the test prompts from `skills/python-class-and-filename/TESTS.md` to verify it is working correctly.
 
 
 ---
@@ -49,7 +49,7 @@ Open your new Gem and try a few of the test prompts from `skills/repo-readme-wri
 
 1. Go to [gemini.google.com](https://gemini.google.com)
 2. Click **Gems** in the sidebar
-3. Select **Repo README Writing**
+3. Select **Creating a Python Class and Choosing the Right Python Filename**
 4. Start your conversation
 
 **Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection — it does not auto-route based on message content.
@@ -60,7 +60,7 @@ Open your new Gem and try a few of the test prompts from `skills/repo-readme-wri
 
 When this skill is updated:
 
-1. Regenerate: `python tools/render_gemini_gem.py skills/repo-readme-writing`
+1. Regenerate: `python tools/render_gemini_gem.py skills/python-class-and-filename`
 2. Open the updated `GEM_INSTRUCTIONS.md`
 3. Edit your Gem in the Gemini UI and replace the instructions
 4. Click **Save**

@@ -85,19 +85,25 @@ python -m agent_skillbook.cli list
 You should see output like:
 
 ```
-Found 3 skill(s):
+Found 7 skill(s):
+
+  code-readability-best-practices
+    Title:   Code Readability Best Practices
+    Summary: Review and refactor code for top-down readability...
+
+  experiment-runbook-discipline
+    Title:   Experiment Runbook Discipline
+    Summary: Plan, launch, monitor, and document long-running experiments...
 
   good-function-design
     Title:   Good Function Design
     Summary: Write small, readable, testable Python functions...
 
-  good-description-writing
-    Title:   Good Description Writing
-    Summary: Write precise, specific descriptions for agent skills...
+  hyperparameter-search-strategy
+    Title:   Hyperparameter Search Strategy
+    Summary: Choose efficient hyperparameter search strategies...
 
-  repo-readme-writing
-    Title:   Repo README Writing
-    Summary: Write clear, structured, beginner-friendly README files...
+  ...
 ```
 
 ### Step 4: Validate all skills
@@ -109,11 +115,13 @@ agent-skillbook validate
 All skills should pass validation. You should see:
 
 ```
+  OK  code-readability-best-practices
+  OK  experiment-runbook-discipline
   OK  good-function-design
-  OK  good-description-writing
-  OK  repo-readme-writing
+  OK  hyperparameter-search-strategy
+  ...
 
-All skills valid.
+All skills valid. Version metadata is consistent.
 ```
 
 ### Step 5: Explore a skill

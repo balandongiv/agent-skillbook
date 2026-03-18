@@ -8,7 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- No unreleased changes yet.
+- Fixed `python -m agent_skillbook.cli render` so it renders every canonical skill when no explicit target is provided.
+
+### Added
+- New starter skill: `experiment-runbook-discipline`
+- New starter skill: `hyperparameter-search-strategy`
+- Canonical guidance for planning, monitoring, and documenting long-running experiments with fresh prefixes, live status artifacts, and post-run metric checks
+- Canonical guidance for choosing efficient hyperparameter search methods and avoiding unjustified brute-force grid search
+- Regression coverage for the CLI render workflow using the repo-local package path
 
 ## [0.1.2] - 2026-03-17
 

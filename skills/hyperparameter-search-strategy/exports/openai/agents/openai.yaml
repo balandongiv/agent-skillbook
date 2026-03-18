@@ -1,0 +1,3 @@
+name: hyperparameter-search-strategy
+description: Choose efficient hyperparameter search strategies for finding optimal parameter sets or parameter pairs, favoring random search, Bayesian optimization, successive halving, evolutionary methods, or population-based training over brute-force grids. Use when an experiment, detector, or training pipeline must tune parameters under compute and evaluation-cost constraints.
+instructions_file: ../SKILL.md

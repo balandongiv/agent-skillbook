@@ -1,0 +1,3 @@
+name: python-class-and-filename
+description: Create focused Python classes and choose matching snake_case module filenames when adding or refactoring class-based code.
+instructions_file: ../SKILL.md

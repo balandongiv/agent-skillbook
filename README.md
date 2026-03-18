@@ -162,17 +162,27 @@ python -m agent_skillbook.cli list
 
 Output:
 ```
-Found 5 skill(s):
+Found 7 skill(s):
 
   code-readability-best-practices
     Title:   Code Readability Best Practices
     Summary: Review and refactor code for top-down readability by reorganizing functions...
     Tags:    readability, refactoring, code-review, comments, maintainability
 
+  experiment-runbook-discipline
+    Title:   Experiment Runbook Discipline
+    Summary: Plan, launch, monitor, and document long-running experiments...
+    Tags:    experimentation, validation, runbook, monitoring, logging, reproducibility
+
   good-function-design
     Title:   Good Function Design
     Summary: Write small, readable, testable Python functions with clear names...
     Tags:    python, functions, readability, testing
+
+  hyperparameter-search-strategy
+    Title:   Hyperparameter Search Strategy
+    Summary: Choose efficient hyperparameter search strategies for finding optimal parameter sets...
+    Tags:    hyperparameter-search, optimization, tuning, experimentation, bayesian-optimization, random-search
 
   good-description-writing
     ...
@@ -294,16 +304,22 @@ Full guide: [docs/description-writing-guide.md](docs/description-writing-guide.m
 
 ## Starter skills
 
-This repository includes five starter skills to demonstrate the format and provide immediate value:
+This repository includes seven starter skills to demonstrate the format and provide immediate value:
 
 ### `code-readability-best-practices`
 Teaches agents how to review or refactor code so it reads top-down and stays easy to scan. Covers: headline-first function ordering, grouping helpers by concern, keeping related functions close together, rewriting vague comments, removing stale comment history, and replacing markup-heavy comments with plain text.
+
+### `experiment-runbook-discipline`
+Teaches agents how to plan, launch, monitor, and document long-running experiments or validation sweeps. Covers: creating markdown investigation notes before a run, choosing fresh experiment prefixes, keeping rolling logs and live status artifacts, verifying real progress, checking final summary outputs, and rerunning validated scopes after logic changes.
 
 ### `good-function-design`
 Teaches agents how to write Python functions that are small, readable, and testable. Covers: single responsibility, descriptive naming, explicit parameters, pure functions, docstrings, and common antipatterns (god functions, mutable defaults).
 
 ### `good-description-writing`
 Teaches agents how to write routing-optimized descriptions for skills, tools, and functions. Critical for AI agent systems where the description is the primary routing signal. Covers the description formula, bad vs good examples, and testing descriptions.
+
+### `hyperparameter-search-strategy`
+Teaches agents how to choose efficient search methods for tuning detector, model, or experiment parameters. Covers: random search as the default large-space baseline, when Bayesian optimization is worth it, when to use successive halving or Hyperband, when evolutionary methods fit irregular spaces, when population-based training is appropriate, and when exhaustive enumeration is still justified.
 
 ### `python-class-and-filename`
 Teaches agents how to create focused Python classes and choose matching `snake_case.py` filenames. Covers: one main class per file, responsibility-based module naming, converting `PascalCase` class names into readable filenames, avoiding vague modules like `utils.py`, and deciding when a stateless module should stay function-oriented instead of class-based.

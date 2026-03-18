@@ -1,4 +1,5 @@
 """Tests for skill renderers."""
+import os
 import subprocess
 import sys
 import pytest
@@ -43,3 +44,21 @@ def test_render_gemini_gem(tmp_path):
     assert result.returncode == 0, f"stdout: {result.stdout}\nstderr: {result.stderr}"
     output_file = tmp_path / "GEM_INSTRUCTIONS.md"
     assert output_file.exists()
+
+
+def test_cli_render_all_skills():
+    repo_root = TOOLS_DIR.parent
+    env = os.environ.copy()
+    pythonpath_entries = [str(repo_root / "src")]
+    if env.get("PYTHONPATH"):
+        pythonpath_entries.append(env["PYTHONPATH"])
+    env["PYTHONPATH"] = os.pathsep.join(pythonpath_entries)
+    result = subprocess.run(
+        [sys.executable, "-m", "agent_skillbook.cli", "render"],
+        cwd=repo_root,
+        capture_output=True,
+        text=True,
+        env=env,
+    )
+    assert result.returncode == 0, f"stdout: {result.stdout}\nstderr: {result.stderr}"
+    assert "Render complete." in result.stdout

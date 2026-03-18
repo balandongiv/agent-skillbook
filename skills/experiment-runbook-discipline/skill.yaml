@@ -1,0 +1,31 @@
+slug: experiment-runbook-discipline
+title: Experiment Runbook Discipline
+summary: Plan, launch, monitor, and document long-running experiments or validation sweeps with fresh experiment prefixes, live status artifacts, rolling logs, and final metric verification. Use when running smoke scopes, staged batches, full sweeps, or reruns after logic changes.
+when_to_use:
+  - when launching a long-running experiment, validation sweep, batch evaluation, or subject-by-subject run
+  - when the user needs background execution, rolling logs, live status files, or progress verification
+  - when experiment outputs must stay traceable through prefixes, markdown notes, and final artifact checks
+  - when logic changes require clean reruns of previously validated scopes
+when_not_to_use:
+  - when the task is only to analyze completed results and no new run needs to be planned or monitored
+  - when the main request is choosing a parameter search algorithm rather than executing and tracking an experiment
+  - when the work is purely code editing or refactoring unrelated to experiment execution
+tags:
+  - experimentation
+  - validation
+  - runbook
+  - monitoring
+  - logging
+  - reproducibility
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

@@ -1,0 +1,31 @@
+slug: hyperparameter-search-strategy
+title: Hyperparameter Search Strategy
+summary: Choose efficient hyperparameter search strategies for finding optimal parameter sets or parameter pairs, favoring random search, Bayesian optimization, successive halving, evolutionary methods, or population-based training over brute-force grids. Use when an experiment, detector, or training pipeline must tune parameters under compute and evaluation-cost constraints.
+when_to_use:
+  - when a detector, experiment, or model must find an optimal parameter set or parameter pair
+  - when the search space is large, mixed, conditional, or expensive to evaluate
+  - when the agent must justify whether to use random search, Bayesian optimization, Hyperband, evolutionary search, or exhaustive enumeration
+  - when the search rationale, budget, and best configuration must be recorded in experiment metadata
+when_not_to_use:
+  - when parameters are fixed by specification, prior validation, or user instruction and no tuning is requested
+  - when the task is only to report completed tuning results rather than design or assess a search approach
+  - when the main request is run orchestration, monitoring, and logging rather than search-method selection
+tags:
+  - hyperparameter-search
+  - optimization
+  - tuning
+  - experimentation
+  - bayesian-optimization
+  - random-search
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
