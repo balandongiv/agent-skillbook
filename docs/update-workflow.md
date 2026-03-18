@@ -2,6 +2,8 @@
 
 This document describes how an AI agent should safely update a skill. Follow these steps every time you modify a skill — whether you are a human contributor or an AI agent making automated updates.
 
+Repository-specific defaults for `agent_skillbook/` also live in `AGENTS.md`. Agents should follow both this workflow and those local instructions.
+
 ---
 
 ## Why follow a workflow?
@@ -108,8 +110,23 @@ For every change, update the skill's `CHANGELOG.md` under `## [Unreleased]`:
 
 Also update the root `CHANGELOG.md` under `## [Unreleased]`.
 
-If the change is part of a release, bump the package version in all three places together:
+`VERSION` is the canonical source of the repository version.
 
+For normal agent-authored changes, bump the patch version:
+
+```bash
+python -m agent_skillbook.cli bump-version patch
+```
+
+If you already set `VERSION` manually and just need to synchronize the other files:
+
+```bash
+python -m agent_skillbook.cli sync-version
+```
+
+If the change is part of a release, keep the package version synchronized in all four places together:
+
+- `VERSION`
 - `pyproject.toml`
 - `src/agent_skillbook/__init__.py`
 - the status line in `README.md`
@@ -120,7 +137,7 @@ If the change is part of a release, bump the package version in all three places
 python -m agent_skillbook.cli validate
 ```
 
-The validator now checks both skill changelog structure and repository version consistency. Do not commit until it passes.
+The validator now checks both skill changelog structure and repository version consistency against `VERSION`. Do not commit until it passes.
 
 ### Step 9: Commit
 

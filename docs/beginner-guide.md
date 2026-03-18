@@ -35,6 +35,8 @@ agent-skillbook/
 ├── templates/               ← Blank templates for creating new skills
 ├── tools/                   ← Python scripts for validation and rendering
 ├── src/agent_skillbook/     ← Python package with CLI
+├── VERSION                  ← Canonical repository version source
+├── AGENTS.md                ← Agent-facing workflow rules for versioning and changelogs
 └── tests/                   ← Automated tests
 ```
 
@@ -85,7 +87,7 @@ python -m agent_skillbook.cli list
 You should see output like:
 
 ```
-Found 7 skill(s):
+Found 9 skill(s):
 
   code-readability-best-practices
     Title:   Code Readability Best Practices
@@ -124,6 +126,8 @@ All skills should pass validation. You should see:
 All skills valid. Version metadata is consistent.
 ```
 
+The validator checks both the skill files and the repository version metadata. `VERSION` is the canonical source, and the package metadata in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line must match it.
+
 ### Step 5: Explore a skill
 
 Open any skill directory and read through it:
@@ -140,6 +144,18 @@ pytest tests/ -v
 ```
 
 All tests should pass.
+
+### Step 7: Learn the versioning workflow
+
+If you change anything under `agent_skillbook/`, do not manually edit version strings in multiple places. Use the CLI helpers:
+
+```bash
+python -m agent_skillbook.cli bump-version patch
+# or
+python -m agent_skillbook.cli sync-version
+```
+
+The agent-facing default rule for this repository lives in `AGENTS.md`: normal `agent_skillbook/` edits should bump at least the patch version unless a user explicitly asks for a different behavior.
 
 ---
 

@@ -1,0 +1,31 @@
+slug: implementation-aligned-planning
+title: Implementation-Aligned Planning
+summary: Turn ambiguous, half-baked, or outdated plans into living planning docs aligned with code, config, paths, execution flow, checks, failure modes, and debugging navigation.
+when_to_use:
+  - when a planning document is ambiguous, stale, or only half written
+  - when implementation has drifted from the original plan and the docs need to become truthful again
+  - when a stage plan should also serve as a repository navigation guide
+  - when related planning docs such as flowcharts, folder structures, or hash notes must stay synchronized
+when_not_to_use:
+  - when the task is only code editing and no planning docs are in scope
+  - when the request is purely product strategy or brainstorming without repository artifacts
+  - when the user only wants terse release notes or a changelog summary
+tags:
+  - planning
+  - documentation
+  - architecture
+  - maintenance
+  - workflow
+  - synchronization
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

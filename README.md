@@ -2,7 +2,7 @@
 
 **Reusable custom skills for agents, with templates and guides.**
 
-Status: Active | Version: 0.1.2 | License: MIT | Python: >=3.9
+Status: Active | Version: 0.1.3 | License: MIT | Python: >=3.9
 
 ---
 
@@ -77,6 +77,8 @@ agent-skillbook/
 ├── tools/                           ← Python scripts for validation and rendering
 ├── src/agent_skillbook/             ← Python package with CLI
 ├── tests/                           ← Automated tests
+├── VERSION                          ← Canonical repository version source
+├── AGENTS.md                        ← Agent-facing update rules for versioning, changelogs, and validation
 ├── pyproject.toml
 └── CONTRIBUTING.md
 ```
@@ -162,7 +164,7 @@ python -m agent_skillbook.cli list
 
 Output:
 ```
-Found 7 skill(s):
+Found 9 skill(s):
 
   code-readability-best-practices
     Title:   Code Readability Best Practices
@@ -251,12 +253,37 @@ agent-skillbook show good-function-design
    pytest tests/ -v
    ```
 
-10. **Update versioning metadata:**
+10. **Update changelogs and versioning metadata:**
     - Add an entry to the skill's `CHANGELOG.md` under `## [Unreleased]`
     - Add an entry to the root `CHANGELOG.md` under `## [Unreleased]`
-    - If this change is part of a release, bump the version in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line together
+    - Bump or synchronize the repository version with:
+      ```bash
+      python -m agent_skillbook.cli bump-version patch
+      # or
+      python -m agent_skillbook.cli sync-version
+      ```
 
 11. **Commit all files** — canonical files and generated exports together.
+
+### Versioning helpers
+
+```bash
+agent-skillbook sync-version
+# or
+python -m agent_skillbook.cli sync-version
+```
+
+Synchronizes `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line from the canonical `VERSION` file.
+
+### Bump the repository version
+
+```bash
+agent-skillbook bump-version patch
+# or
+python -m agent_skillbook.cli bump-version patch
+```
+
+Available bump levels are `patch`, `minor`, and `major`.
 
 ---
 
@@ -267,16 +294,27 @@ agent-skillbook show good-function-design
 3. Validate: `agent-skillbook validate`
 4. Test: `pytest tests/ -v`
 5. Update `CHANGELOG.md` in the skill directory
-6. Commit
+6. Bump or sync the repository version with the CLI helpers
+7. Commit
 
 ### Versioning policy
 
 Treat versioning in two layers:
 
 - **Every change:** record it under the relevant `## [Unreleased]` section in the skill changelog and the root `CHANGELOG.md`
-- **Every release:** bump the package version in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line together
+- **Every release:** keep `VERSION`, `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line synchronized
 
-The validator checks that these package version fields stay synchronized and that each skill changelog includes an `## [Unreleased]` section. This makes agents and contributors aware of versioning expectations before a change is committed.
+`VERSION` is the canonical source. Use:
+
+```bash
+python -m agent_skillbook.cli bump-version patch
+# or
+python -m agent_skillbook.cli sync-version
+```
+
+`agent_skillbook/AGENTS.md` tells agents to bump at least the patch version for any `agent_skillbook/` change unless the user explicitly requests a different semver level or no version bump.
+
+The validator checks that `VERSION`, `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line stay synchronized, and that each skill changelog includes an `## [Unreleased]` section. This makes agents and contributors aware of versioning expectations before a change is committed.
 
 Full workflow details: [docs/update-workflow.md](docs/update-workflow.md)
 
@@ -304,7 +342,7 @@ Full guide: [docs/description-writing-guide.md](docs/description-writing-guide.m
 
 ## Starter skills
 
-This repository includes seven starter skills to demonstrate the format and provide immediate value:
+This repository includes nine starter skills to demonstrate the format and provide immediate value:
 
 ### `code-readability-best-practices`
 Teaches agents how to review or refactor code so it reads top-down and stays easy to scan. Covers: headline-first function ordering, grouping helpers by concern, keeping related functions close together, rewriting vague comments, removing stale comment history, and replacing markup-heavy comments with plain text.
@@ -320,6 +358,12 @@ Teaches agents how to write routing-optimized descriptions for skills, tools, an
 
 ### `hyperparameter-search-strategy`
 Teaches agents how to choose efficient search methods for tuning detector, model, or experiment parameters. Covers: random search as the default large-space baseline, when Bayesian optimization is worth it, when to use successive halving or Hyperband, when evolutionary methods fit irregular spaces, when population-based training is appropriate, and when exhaustive enumeration is still justified.
+
+### `implementation-aligned-planning`
+Teaches agents how to turn ambiguous, stale, or half-baked planning documents into implementation-aligned engineering documents. Covers: using code and config as the source of truth for concrete behavior, rewriting stages into explicit contracts and execution flows, synchronizing flowcharts and folder docs, and keeping unresolved ambiguity visible instead of hand-waving it away.
+
+### `intellij-line-debugging`
+Teaches agents how to prepare line-by-line IntelliJ IDEA or PyCharm debugging workflows for real code paths. Covers: shrinking scope to one real unit of work, removing hidden cache skips, using serial debug helpers when needed, setting exact breakpoint order, and stepping into library boundaries intentionally.
 
 ### `python-class-and-filename`
 Teaches agents how to create focused Python classes and choose matching `snake_case.py` filenames. Covers: one main class per file, responsibility-based module naming, converting `PascalCase` class names into readable filenames, avoiding vague modules like `utils.py`, and deciding when a stateless module should stay function-oriented instead of class-based.

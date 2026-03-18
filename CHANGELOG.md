@@ -8,14 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Fixed `python -m agent_skillbook.cli render` so it renders every canonical skill when no explicit target is provided.
+- No unreleased changes yet.
+
+## [0.1.3] - 2026-03-18
 
 ### Added
+- New starter skill: `intellij-line-debugging`
+- New starter skill: `implementation-aligned-planning`
 - New starter skill: `experiment-runbook-discipline`
 - New starter skill: `hyperparameter-search-strategy`
+- Canonical root `VERSION` file for repository version management
+- `agent_skillbook/AGENTS.md` with agent-facing rules for changelog and version updates
+- CLI command: `python -m agent_skillbook.cli sync-version`
+- CLI command: `python -m agent_skillbook.cli bump-version [patch|minor|major]`
+- Beginner and contributor docs for the canonical `VERSION` workflow and agent-facing auto-bump rules
+- Regression coverage for canonical `VERSION` synchronization and version bump helpers
+
+### Changed
 - Canonical guidance for planning, monitoring, and documenting long-running experiments with fresh prefixes, live status artifacts, and post-run metric checks
 - Canonical guidance for choosing efficient hyperparameter search methods and avoiding unjustified brute-force grid search
-- Regression coverage for the CLI render workflow using the repo-local package path
+- Fixed `python -m agent_skillbook.cli render` so it renders every canonical skill when no explicit target is provided.
+- Repository version validation now treats `VERSION` as the canonical source and requires `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` to match it
+- Contributor and workflow docs now instruct agents to bump or sync version metadata through the CLI helpers rather than editing version strings independently
+
+### Fixed
+- CLI render workflow regression when invoking `python -m agent_skillbook.cli render` from the repo-local package path
 
 ## [0.1.2] - 2026-03-17
 

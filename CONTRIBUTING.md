@@ -100,10 +100,16 @@ Thank you for contributing to **agent-skillbook**! This guide explains the rules
 
 4. **Update `CHANGELOG.md`** in the skill directory under `## [Unreleased]`, and update the root `CHANGELOG.md` under `## [Unreleased]` as well.
 
-5. **If you are preparing a release, bump the package version everywhere it appears:**
-   - `pyproject.toml`
-   - `src/agent_skillbook/__init__.py`
-   - the version shown in `README.md`
+5. **Version metadata uses `VERSION` as the canonical source.**
+   - for normal agent-authored updates, bump at least the patch version:
+     ```bash
+     python -m agent_skillbook.cli bump-version patch
+     ```
+   - to sync existing metadata from `VERSION` without changing the semantic version:
+     ```bash
+     python -m agent_skillbook.cli sync-version
+     ```
+   - do not edit `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README version line independently
 
 ---
 
@@ -160,7 +166,7 @@ Every pull request that changes a skill **must** update both:
 - The root `CHANGELOG.md`
 
 For normal in-progress work, add entries under `## [Unreleased]`.
-When you cut a release, move the unreleased notes into a dated semantic version section and bump the package version metadata in `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` together.
+When you cut a release, move the unreleased notes into a dated semantic version section and keep `VERSION`, `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` synchronized.
 
 Follow the [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format:
 ```markdown
@@ -193,7 +199,7 @@ Validation checks:
 - `INSTRUCTIONS.md`, `EXAMPLES.md`, `TESTS.md`, `CHANGELOG.md` exist
 - Each skill `CHANGELOG.md` has an `## [Unreleased]` section and at least one semantic-version release heading
 - All exports exist and are not empty
-- `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` agree on the current package version
+- `VERSION`, `pyproject.toml`, `src/agent_skillbook/__init__.py`, and `README.md` agree on the current package version
 
 ---
 

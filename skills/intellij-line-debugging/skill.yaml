@@ -1,0 +1,31 @@
+slug: intellij-line-debugging
+title: IntelliJ Line Debugging
+summary: Turn complex execution paths into line-by-line IntelliJ IDEA debugging flows with serial entrypoints, real inputs, exact breakpoint order, and cache-safe reruns.
+when_to_use:
+  - when the user wants to debug sequence by sequence or line by line in IntelliJ IDEA or PyCharm
+  - when a production path is too parallel, too cached, or too broad to follow directly
+  - when you need a small serial debug harness for one subject, session, file, stage, or parameter set
+  - when tracing a data path from file load through library calls to merge, write, or model output
+when_not_to_use:
+  - when the task is only to fix a bug and the user does not need a repeatable debug workflow
+  - when the request is purely high-level architecture explanation
+  - when the work requires profiling or tracing tools rather than step-through debugging
+tags:
+  - debugging
+  - intellij
+  - pycharm
+  - workflow
+  - reproducibility
+  - observability
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

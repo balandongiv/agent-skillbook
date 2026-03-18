@@ -51,10 +51,40 @@ def cmd_validate(args):
     print()
     if all_ok:
         print("All skills valid. Version metadata is consistent.")
-        print("Reminder: record edits under the relevant [Unreleased] changelog section, and bump package versions together when cutting a release.")
+        print("Reminder: record edits under the relevant [Unreleased] changelog section, and keep VERSION, pyproject.toml, __init__.py, and README.md synchronized.")
     else:
         print("Validation failed. See errors above.")
         sys.exit(1)
+
+
+def cmd_sync_version(args):
+    from .versioning import sync_repository_versioning
+
+    repo_root = SKILLS_DIR.parent
+    version = None
+    if len(args) > 1:
+        if len(args) == 3 and args[1] == "--version":
+            version = args[2]
+        else:
+            print("Usage: agent-skillbook sync-version [--version X.Y.Z]")
+            sys.exit(1)
+
+    resolved_version = sync_repository_versioning(repo_root, version=version)
+    print(f"Synchronized repository version metadata to {resolved_version}.")
+
+
+def cmd_bump_version(args):
+    from .versioning import bump_repository_version
+
+    part = args[1] if len(args) > 1 else "patch"
+    if part not in {"patch", "minor", "major"}:
+        print("Usage: agent-skillbook bump-version [patch|minor|major]")
+        sys.exit(1)
+
+    repo_root = SKILLS_DIR.parent
+    resolved_version = bump_repository_version(repo_root, part=part)
+    print(f"Bumped repository version to {resolved_version}.")
+    print("Reminder: update root CHANGELOG.md and any affected skill CHANGELOG.md entries.")
 
 
 def cmd_render(args):
@@ -106,7 +136,7 @@ def main():
     args = sys.argv[1:]
     if not args:
         print("Usage: agent-skillbook <command> [args]")
-        print("Commands: list, validate, render, show")
+        print("Commands: list, validate, render, show, sync-version, bump-version")
         sys.exit(0)
     command = args[0]
     dispatch = {
@@ -114,10 +144,12 @@ def main():
         "validate": cmd_validate,
         "render": cmd_render,
         "show": cmd_show,
+        "sync-version": cmd_sync_version,
+        "bump-version": cmd_bump_version,
     }
     if command not in dispatch:
         print(f"Unknown command: {command}")
-        print("Commands: list, validate, render, show")
+        print("Commands: list, validate, render, show, sync-version, bump-version")
         sys.exit(1)
     dispatch[command](args)
 

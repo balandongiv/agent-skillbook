@@ -1,0 +1,3 @@
+name: intellij-line-debugging
+description: Turn complex execution paths into line-by-line IntelliJ IDEA debugging flows with serial entrypoints, real inputs, exact breakpoint order, and cache-safe reruns.
+instructions_file: ../SKILL.md

@@ -40,7 +40,7 @@ def main():
     print()
     if all_ok:
         print(f"All {len(results)} skill(s) valid. Version metadata is consistent.")
-        print("Reminder: keep [Unreleased] changelog entries current, and bump release versions in pyproject.toml, __init__.py, and README.md together.")
+        print("Reminder: keep [Unreleased] changelog entries current, and keep VERSION, pyproject.toml, __init__.py, and README.md synchronized.")
     else:
         failed = ["repository-versioning"] if not repo_ok else []
         failed.extend(n for n, r in results.items() if not r["ok"])

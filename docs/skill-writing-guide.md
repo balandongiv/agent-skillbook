@@ -148,5 +148,7 @@ Skills drift over time. Here are practices that help:
 
 5. **Use the validator.** Run `agent-skillbook validate` before every commit. It catches common issues automatically.
 
-   The validator also checks version awareness: each skill changelog must include `## [Unreleased]`, and the repository version must stay synchronized across `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line.
+   The validator also checks version awareness: each skill changelog must include `## [Unreleased]`, and the repository version must stay synchronized across `VERSION`, `pyproject.toml`, `src/agent_skillbook/__init__.py`, and the README status line.
+
+6. **Keep agent instructions close to the repo.** If you want agents to follow a consistent maintenance workflow, store those rules in `AGENTS.md` near the files they affect. In this repository, `agent_skillbook/AGENTS.md` tells agents to update changelogs, bump at least the patch version for normal `agent_skillbook/` edits, regenerate exports when canonical skill files change, and run validation before finishing.
 

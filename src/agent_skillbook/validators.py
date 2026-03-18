@@ -3,14 +3,19 @@ import re
 from pathlib import Path
 from typing import List, Tuple
 
+from .versioning import (
+    INIT_VERSION_RE,
+    PYPROJECT_VERSION_RE,
+    README_VERSION_RE,
+    SEMVER_RE,
+    VERSION_FILE_NAME,
+    read_canonical_version,
+)
+
 REQUIRED_FILES = ["skill.yaml", "INSTRUCTIONS.md", "EXAMPLES.md", "TESTS.md", "CHANGELOG.md"]
 REQUIRED_YAML_FIELDS = ["slug", "title", "summary", "when_to_use", "when_not_to_use", "tags", "invocation"]
 KEBAB_CASE_RE = re.compile(r"^[a-z][a-z0-9-]*$")
-SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 CHANGELOG_RELEASE_RE = re.compile(r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}$", re.MULTILINE)
-PYPROJECT_VERSION_RE = re.compile(r'^version\s*=\s*"([^"]+)"\s*$', re.MULTILINE)
-INIT_VERSION_RE = re.compile(r'^__version__\s*=\s*"([^"]+)"\s*$', re.MULTILINE)
-README_VERSION_RE = re.compile(r'^Status:\s.*\|\sVersion:\s([^\s|]+)\s\|', re.MULTILINE)
 
 ValidationResult = Tuple[bool, List[str]]
 
@@ -111,6 +116,12 @@ def validate_skill(skill_dir: Path) -> ValidationResult:
 def validate_repository_versioning(repo_root: Path) -> ValidationResult:
     errors = []
 
+    canonical_version = ""
+    try:
+        canonical_version = read_canonical_version(repo_root)
+    except (FileNotFoundError, ValueError) as exc:
+        errors.append(str(exc))
+
     pyproject_version, pyproject_errors = _extract_with_regex(
         repo_root / "pyproject.toml",
         PYPROJECT_VERSION_RE,
@@ -142,6 +153,21 @@ def validate_repository_versioning(repo_root: Path) -> ValidationResult:
 
     if pyproject_version and not SEMVER_RE.match(pyproject_version):
         errors.append(f"pyproject.toml version '{pyproject_version}' must use semantic versioning (X.Y.Z)")
+
+    if canonical_version and pyproject_version and canonical_version != pyproject_version:
+        errors.append(
+            f"Version mismatch: {VERSION_FILE_NAME} has {canonical_version} but pyproject.toml has {pyproject_version}"
+        )
+
+    if canonical_version and init_version and canonical_version != init_version:
+        errors.append(
+            f"Version mismatch: {VERSION_FILE_NAME} has {canonical_version} but src/agent_skillbook/__init__.py has {init_version}"
+        )
+
+    if canonical_version and readme_version and canonical_version != readme_version:
+        errors.append(
+            f"Version mismatch: {VERSION_FILE_NAME} has {canonical_version} but README.md shows {readme_version}"
+        )
 
     if pyproject_version and init_version and pyproject_version != init_version:
         errors.append(
