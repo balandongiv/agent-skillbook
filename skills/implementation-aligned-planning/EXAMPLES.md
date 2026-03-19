@@ -77,3 +77,34 @@ We might cluster labels somehow and maybe use metadata filters later.
 ### Why it's better
 
 The document becomes actionable without pretending every unknown is solved.
+
+---
+
+## Example 4: Documenting naming rules and source-versus-cache files
+
+### Before (without this skill)
+
+```text
+Stage 3 reads metadata and writes labels.
+Stage 2 outputs feature columns for EEG, EOG, and EAR.
+```
+
+### After (with this skill applied)
+
+```text
+1. Document the human source of truth:
+   - config/info_csv_full_version.xlsx
+2. Document the runtime caches:
+   - experimentation/subject_metadata.csv
+   - experimentation/subject_metadata.parquet
+3. Write the naming contract:
+   - eeg__... for EEG-derived columns
+   - eog__... for EOG-derived columns when emitted separately
+   - ear__threshold_10pct__... for threshold-tagged EAR columns
+   - <experiment_name> for each experiment-specific label column
+4. Distinguish summary EDA files from heavy plot-gallery files by name and purpose.
+```
+
+### Why it's better
+
+Readers can now navigate both the files and the wide tables without reverse-engineering naming patterns from the code.

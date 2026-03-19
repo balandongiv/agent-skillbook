@@ -1,6 +1,6 @@
 ---
 name: intellij-line-debugging
-description: Turn complex execution paths into line-by-line IntelliJ IDEA debugging flows with serial entrypoints, real inputs, exact breakpoint order, and cache-safe reruns.
+description: Turn complex execution paths into line-by-line IntelliJ IDEA debugging flows with serial tutorial entrypoints, smallest-real-input reruns, exact breakpoint order, and deliberate stepping into editable local dependencies.
 disable-model-invocation: false
 user-invocable: true
 allowed-tools: []
@@ -8,7 +8,7 @@ allowed-tools: []
 
 # IntelliJ Line Debugging
 
-Use this skill when the user wants to understand execution step by step inside IntelliJ IDEA or PyCharm. The goal is not only to "make debugging possible," but to make the path easy to follow from a real input through the real production call order, with minimal branching, minimal hidden cache skips, and clear breakpoint placement.
+Use this skill when the user wants to understand execution step by step inside IntelliJ IDEA or PyCharm. The goal is not only to "make debugging possible," but to make the path easy to follow from a real input through the real production call order, with minimal branching, minimal hidden cache skips, clear breakpoint placement, and deliberate stepping into repo-local editable dependencies when the library code is part of the question.
 
 ---
 
@@ -55,11 +55,22 @@ Do not just say "debug this file." Tell the user the exact order of breakpoints 
 
 If the user wants to see what happens inside third-party code, point them to the exact call sites where they should use Step Into. Also tell them what IntelliJ setting may block library stepping.
 
-### 7. Leave behind a reusable debug entrypoint
+### 7. Step into editable local dependencies intentionally
+
+If the runtime uses a local editable package, treat that package as part of the debuggable codebase. Tell the user:
+
+- which wrapper or import boundary enters the dependency
+- which function call is the best Step Into point
+- which local repo path contains the dependency code
+
+If the bug lives in the editable dependency, prefer fixing it at the dependency source instead of piling on project-local workarounds.
+
+### 8. Leave behind a reusable debug entrypoint
 
 If you add a helper such as `debug_<stage>_sequence.py`, keep it:
 
-- close to the production module it explains
+- in `tutorials/` or another clearly human-facing learning/debug folder when the helper is meant to be opened and debugged directly in the IDE
+- close to the production stage in naming and documentation, even if the file itself lives in `tutorials/`
 - easy to right-click and debug
 - configurable through a small settings block or CLI args
 - faithful to the production call order
@@ -97,7 +108,8 @@ If you add a debug helper, make its sequence match production:
 2. resolve the target input record
 3. load the input file(s)
 4. call the real processing functions in the same order
-5. stop before later stages when requested
+5. cross the editable-dependency boundary at the same point as production when library stepping matters
+6. stop before later stages when requested
 
 The helper should explain the production code, not replace it.
 
@@ -128,7 +140,7 @@ Breakpoints should usually follow this order:
 1. input and path resolution
 2. first file load
 3. first major transform
-4. third-party library call boundary
+4. editable local dependency or third-party library call boundary
 5. merge or join boundary
 6. final write boundary
 
@@ -143,6 +155,7 @@ At each breakpoint, tell the user what to inspect:
 - epoch indices or join keys
 - config values
 - selected feature names
+- local dependency path and function name when library stepping is relevant
 - alignment or mismatch summary
 - output path and row count
 
@@ -158,10 +171,12 @@ If the helper teaches the execution path or is likely to help again, keep it in 
 - Prefer `jobs=1` when the user wants line-by-line debugging.
 - Prefer `--force` or equivalent when cache reuse would skip important code.
 - Prefer a thin serial debug harness over a heavy refactor.
-- Keep debug helpers near the production stage they explain.
+- Put reusable human-facing debug helpers in `tutorials/` or an equally obvious IDE-facing folder.
+- Keep the helper tied clearly to the production stage it explains through naming and docs.
 - Keep the helper faithful to the production call order.
 - Provide the exact breakpoint order, not just the file name.
 - Point to exact library call sites when stepping into third-party code matters.
+- Point to the actual repo-local path when the dependency is installed in editable mode.
 - Preserve production behavior if refactoring for debug readability.
 
 ---
@@ -174,6 +189,8 @@ If the helper teaches the execution path or is likely to help again, keep it in 
 - **Keeping parallel workers enabled**: Multiple workers make breakpoints noisy and hard to reason about.
 - **Starting with vague instructions**: "Set some breakpoints" is not enough. Give the breakpoint order.
 - **Skipping library settings**: IntelliJ may skip library stepping unless the debugger settings allow it.
+- **Hiding the helper in a deep package**: If the helper is meant for humans to open and debug directly, put it somewhere obvious like `tutorials/`.
+- **Treating editable dependencies like remote black boxes**: If the code is in the repo and installed editable, show where to step into it.
 - **Using a helper with too many knobs**: A debug helper should reduce choices, not recreate the full CLI surface.
 
 ---
@@ -185,7 +202,9 @@ If the helper teaches the execution path or is likely to help again, keep it in 
 - Set `jobs=1`.
 - Force rerun or bypass cache if needed.
 - Add a thin debug helper only if the production entrypoint is too broad.
+- Put reusable IDE helpers where a human will look first.
 - Give the user the exact breakpoint order.
+- Point to the local editable dependency boundary when relevant.
 - Point out the best step-into boundaries for third-party libraries.
 - Tell the user what state to inspect at each stop.
 - Keep the helper reusable if it adds long-term value.

@@ -41,3 +41,11 @@ Expected behavior: The agent freezes scope aggressively, sets `jobs=1`, and reco
 > "Should we add a debug helper or just use the current entrypoint?"
 
 Expected behavior: The agent chooses the simplest of direct entrypoint, direct instructions, or thin helper, and avoids unnecessary refactoring.
+
+---
+
+## Test Prompt 6
+
+> "This package is installed editable from a local repo. Show me exactly where to Step Into it from IntelliJ and give me a debug script I can find easily."
+
+Expected behavior: The agent identifies the editable dependency boundary, points to the local repo path, and prefers a reusable helper in `tutorials/` or an equally obvious IDE-facing location.

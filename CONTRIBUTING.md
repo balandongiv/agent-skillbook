@@ -20,6 +20,8 @@ Thank you for contributing to **agent-skillbook**! This guide explains the rules
 
 ## How to create a new skill
 
+If a repeated user preference or correction does not fit cleanly into an existing skill, create a new skill for it instead of relying on conversational memory.
+
 1. **Pick a slug.** Use lowercase kebab-case (e.g. `my-new-skill`). The slug must be unique.
 
 2. **Create the skill directory:**
@@ -76,6 +78,8 @@ Thank you for contributing to **agent-skillbook**! This guide explains the rules
 ---
 
 ## How to edit an existing skill
+
+If the same preference or correction has appeared multiple times, prefer updating the relevant skill so future agents inherit it automatically.
 
 1. **Always edit the canonical files first.** The canonical files are:
    - `skills/<slug>/skill.yaml`

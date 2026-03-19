@@ -41,3 +41,11 @@ Expected behavior: The agent uses code and config as the source of truth for con
 > "Make this stage plan explain exactly what files are read and written, and where to debug first."
 
 Expected behavior: The agent adds a precise folder contract, execution flow, and debugging path rather than leaving the plan at a high level.
+
+---
+
+## Test Prompt 6
+
+> "Rewrite this planning doc so it explains the column naming rules, the Excel source of truth, the normalized parquet cache, and which tutorial script I should debug."
+
+Expected behavior: The agent documents naming contracts, source-versus-cache relationships, and the human-facing debug entrypoint alongside the execution flow.

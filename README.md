@@ -2,7 +2,7 @@
 
 **Reusable custom skills for agents, with templates and guides.**
 
-Status: Active | Version: 0.1.3 | License: MIT | Python: >=3.9
+Status: Active | Version: 0.1.4 | License: MIT | Python: >=3.9
 
 ---
 
@@ -13,6 +13,8 @@ Status: Active | Version: 0.1.3 | License: MIT | Python: >=3.9
 Skills are stored in a **canonical format** that is platform-independent. From each skill, the repository generates platform-specific exports for OpenAI, Claude, and Gemini. You edit the canonical files, run one command, and all exports update automatically.
 
 This repository is designed to be cloned, extended, and customized. Add your own skills, modify existing ones, and use the validation and rendering tools to keep everything consistent.
+
+When a workflow preference keeps recurring, the preferred maintenance path is to capture it in an existing skill or add a new skill instead of relying on conversational memory alone.
 
 ---
 
@@ -164,7 +166,7 @@ python -m agent_skillbook.cli list
 
 Output:
 ```
-Found 9 skill(s):
+Found 10 skill(s):
 
   code-readability-best-practices
     Title:   Code Readability Best Practices
@@ -290,12 +292,13 @@ Available bump levels are `patch`, `minor`, and `major`.
 ## How to update a skill
 
 1. Edit the canonical file (never edit exports directly)
-2. Regenerate: `agent-skillbook render`
-3. Validate: `agent-skillbook validate`
-4. Test: `pytest tests/ -v`
-5. Update `CHANGELOG.md` in the skill directory
-6. Bump or sync the repository version with the CLI helpers
-7. Commit
+2. If the change comes from a repeated user preference or correction, decide whether it belongs in the existing skill or should become a new reusable skill
+3. Regenerate: `agent-skillbook render`
+4. Validate: `agent-skillbook validate`
+5. Test: `pytest tests/ -v`
+6. Update `CHANGELOG.md` in the skill directory
+7. Bump or sync the repository version with the CLI helpers
+8. Commit
 
 ### Versioning policy
 
@@ -342,7 +345,7 @@ Full guide: [docs/description-writing-guide.md](docs/description-writing-guide.m
 
 ## Starter skills
 
-This repository includes nine starter skills to demonstrate the format and provide immediate value:
+This repository includes ten starter skills to demonstrate the format and provide immediate value:
 
 ### `code-readability-best-practices`
 Teaches agents how to review or refactor code so it reads top-down and stays easy to scan. Covers: headline-first function ordering, grouping helpers by concern, keeping related functions close together, rewriting vague comments, removing stale comment history, and replacing markup-heavy comments with plain text.
@@ -370,6 +373,9 @@ Teaches agents how to create focused Python classes and choose matching `snake_c
 
 ### `repo-readme-writing`
 Teaches agents how to write beginner-friendly GitHub README files. Covers required sections, writing for a newcomer audience, quick start sections, working code examples, and avoiding jargon.
+
+### `real-data-validation-promotion`
+Teaches agents how to validate pipelines on the smallest real dataset scope first and only then promote to broader sweeps. Covers: real-data smoke validation, stable smoke-to-full code paths, editable local dependency handling, summary-artifact versus plot-gallery separation, and honest residual-risk reporting.
 
 ---
 

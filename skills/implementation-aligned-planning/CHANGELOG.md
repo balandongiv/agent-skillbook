@@ -7,6 +7,13 @@ All notable changes to this skill are documented here.
 ### Changed
 - No unreleased changes yet.
 
+## [0.1.1] - 2026-03-19
+
+### Changed
+- Expanded the skill to require explicit naming contracts for wide tables, thresholds, reports, and experiment outputs
+- Added guidance for documenting source-of-truth files separately from normalized runtime caches
+- Added examples and trigger prompts covering naming conventions, cache documentation, and tutorial debug entrypoints
+
 ## [0.1.0] - 2026-03-18
 
 ### Added

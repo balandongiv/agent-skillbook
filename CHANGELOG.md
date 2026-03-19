@@ -10,6 +10,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - No unreleased changes yet.
 
+## [0.1.4] - 2026-03-19
+
+### Added
+- New starter skill: `real-data-validation-promotion`
+- Agent rule in `AGENTS.md` requiring repeated user preferences and corrections to be captured in existing or new skills instead of relying on conversational memory
+
+### Changed
+- Expanded `intellij-line-debugging` to cover tutorial-style debug helper placement and stepping into editable local dependencies
+- Expanded `implementation-aligned-planning` to require naming contracts, source-versus-cache documentation, and human-facing debug entrypoints
+- Expanded `experiment-runbook-discipline` to emphasize smallest-real-data smoke validation, staged promotion, and editable dependency revalidation
+- Updated skillbook README and contributing docs to reflect recurring-preference capture as part of normal skill maintenance
+
 ## [0.1.3] - 2026-03-18
 
 ### Added

@@ -41,3 +41,19 @@ Expected behavior: The agent recommends a staged workflow with smoke scope, fres
 > "Document this investigation, monitor the run, and summarize the final metrics when it finishes."
 
 Expected behavior: The agent creates a markdown investigation note before execution, monitors the run through durable artifacts, and reports the final metrics from summary outputs.
+
+---
+
+## Test Prompt 6
+
+> "Synthetic smoke is not acceptable here. Use the actual dataset for the smallest safe validation run, then promote if it passes."
+
+Expected behavior: The agent plans a real-data smoke scope first, defines explicit promotion criteria, and does not treat synthetic-only validation as sufficient.
+
+---
+
+## Test Prompt 7
+
+> "This failing run uses an editable local dependency. Track it properly, fix it at the source, and rerun the smoke scope before the full sweep."
+
+Expected behavior: The agent records the editable dependency in the runbook, treats it as part of the run logic, and reruns the smallest real-data scope after the fix.

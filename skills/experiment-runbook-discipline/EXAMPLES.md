@@ -95,3 +95,28 @@ If something fails after six hours, patch it and restart.
 ### Why it's better
 
 This version buys confidence cheaply. Small scopes catch broken paths, missing outputs, and stalled progress earlier, which reduces wasted compute time on the full sweep.
+
+---
+
+## Example 4: Treating editable local dependencies as part of the validation run
+
+### Before (without this skill)
+
+```text
+The full run failed inside a package that is installed editable from a local repo.
+Patch around it downstream and continue the batch.
+```
+
+### After (with this skill applied)
+
+```text
+1. Record the editable dependency and local repo path in the investigation note.
+2. Stop promotion to larger scopes.
+3. Fix the bug at the dependency source.
+4. Rerun the smallest real-data smoke scope under a fresh prefix.
+5. Promote back to staged or full runs only after the smoke scope is clean again.
+```
+
+### Why it's better
+
+It keeps the validation honest, fixes the real source of failure, and prevents a broken dependency from contaminating later runs.

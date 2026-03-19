@@ -1,0 +1,32 @@
+slug: real-data-validation-promotion
+title: Real-Data Validation Promotion
+summary: Validate data or ML pipelines on the smallest real dataset scope first, then promote to staged batches and full sweeps with the same code path, editable local dependencies, artifact checks, and honest residual-risk reporting.
+when_to_use:
+  - when the user says synthetic data is not acceptable for pipeline smoke or validation
+  - when claims about pipeline correctness must be established on real inputs and real file layout
+  - when a stage or full pipeline should be promoted from one real case to cohort sweep and full run
+  - when editable local dependencies are part of the runtime and may need to be debugged or patched during validation
+  - when validation should produce both summary artifacts and explicit pass or fail promotion decisions
+when_not_to_use:
+  - when the task is only to write unit tests or mocked regression coverage
+  - when no real dataset is available and the user only wants isolated function verification
+  - when the work is only post-hoc analysis of already completed runs with no validation or promotion decision
+tags:
+  - validation
+  - real-data
+  - smoke-test
+  - promotion
+  - reproducibility
+  - dependency-debugging
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

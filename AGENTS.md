@@ -45,6 +45,25 @@ If any canonical skill files changed:
 
 - regenerate exports with `python -m agent_skillbook.cli render`
 
+## Recurring preference capture rule
+
+If a user repeats the same workflow preference, correction, validation standard, naming convention, or debugging style across multiple turns, do not rely on conversational memory alone.
+
+Instead:
+
+1. update an existing skill if the preference clearly belongs there
+2. create a new skill if the preference is distinct and likely reusable across projects
+3. update the relevant skill `CHANGELOG.md` and the root `CHANGELOG.md`
+4. bump and sync the repository version metadata
+5. regenerate exports and run validation before finishing
+
+Examples of preferences that should be codified:
+
+- IntelliJ-first debugging expectations
+- real-data-first smoke and promotion rules
+- implementation-aligned planning and naming contracts
+- experiment runbook and observability discipline
+
 ## Validation rule
 
 Before finishing:

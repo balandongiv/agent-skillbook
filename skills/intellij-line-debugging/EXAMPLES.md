@@ -87,3 +87,28 @@ The model library seems wrong. Can you inspect it?
 ### Why it's better
 
 The improved version makes library debugging deliberate instead of leaving the user to fight the IDE.
+
+---
+
+## Example 4: Making the debug helper easy for a human to find
+
+### Before (without this skill)
+
+```text
+Put debug_stage2.py under src/pipeline/internal/helpers/ so it stays close to the code.
+Tell the user to open that file manually.
+```
+
+### After (with this skill applied)
+
+```text
+1. Put the reusable IDE-facing helper in tutorials/, for example:
+   - tutorials/debug_feature_extraction_sequence.py
+2. Keep its call order identical to production.
+3. In the docs, point to the production modules it enters and the exact breakpoint order.
+4. If the helper steps into an editable dependency, also point to that local repo path.
+```
+
+### Why it's better
+
+The helper stays easy to discover in the IDE, while the documentation still ties it back to the production code and editable dependencies it explains.
