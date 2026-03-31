@@ -1,0 +1,28 @@
+slug: subject-outlier-review
+title: Subject Outlier Review
+summary: Review per-subject performance to identify likely outliers, distinguish bad data from difficult but valid cases, and document whether subject exclusion is justified before any filtered rerun.
+when_to_use:
+  - when the user suspects one or more subjects are dragging down model performance
+  - when subject-level performance needs to be ranked and compared
+  - when the user wants to know whether a subject should be excluded from final metrics
+when_not_to_use:
+  - when only aggregate metrics are needed and no subject-level question is being asked
+  - when the task is to write the manuscript results section without investigating an outlier decision
+tags:
+  - outliers
+  - evaluation
+  - subject-level
+  - metrics
+  - quality-control
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

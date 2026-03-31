@@ -1,0 +1,28 @@
+slug: manuscript-results-curation
+title: Manuscript Results Curation
+summary: Curate manuscript results directly in LaTeX from experiment artifacts, including tables, plots, graphs, images, and detailed scientific interpretation tied to concrete outputs.
+when_to_use:
+  - when the user wants the results section edited directly in LaTeX
+  - when the manuscript needs new tables, plots, graphs, images, or comparison figures
+  - when experiment outputs need to be turned into manuscript-ready narrative and visuals
+when_not_to_use:
+  - when the task is only to inspect experiment artifacts without editing the manuscript
+  - when the user wants a generated summary outside the LaTeX manuscript workflow
+tags:
+  - manuscript
+  - latex
+  - reporting
+  - figures
+  - interpretation
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

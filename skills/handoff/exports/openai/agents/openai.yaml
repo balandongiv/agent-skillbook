@@ -1,0 +1,3 @@
+name: handoff
+description: Create operational handoff markdowns that capture what was completed, what is stopped, what remains pending, which artifacts matter, and which commands the next agent should run next.
+instructions_file: ../SKILL.md

@@ -1,0 +1,28 @@
+slug: handoff
+title: Handoff
+summary: Create operational handoff markdowns that capture what was completed, what is stopped, what remains pending, which artifacts matter, and which commands the next agent should run next.
+when_to_use:
+  - when the user asks for a handoff note, transfer summary, resume markdown, or session checkpoint
+  - when current work must be documented for another agent or for a later session
+  - when the repository state, active processes, logs, and pending tasks need to be written down in one durable file
+when_not_to_use:
+  - when the user only wants a short conversational recap and no durable artifact
+  - when the task is to resume from an existing handoff rather than create a new one
+tags:
+  - handoff
+  - documentation
+  - operations
+  - runbook
+  - continuity
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

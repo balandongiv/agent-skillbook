@@ -10,6 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - No unreleased changes yet.
 
+## [0.1.5] - 2026-03-31
+
+### Added
+- New canonical skills: `handoff`, `handoff-resume`, `subject-outlier-review`, and `manuscript-results-curation`
+- Canonical guidance for operational handoff creation, handoff-driven resume workflows, subject-level outlier review, and direct manuscript result curation
+
+### Changed
+- Migrated the repository-local workflow skills from `.codex/skills/` into canonical `agent_skillbook/skills/` entries
+- Regenerated skill exports so OpenAI-facing metadata is emitted from the canonical skillbook schema, including `exports/openai/SKILL.md` and `exports/openai/agents/openai.yaml`
+
 ## [0.1.4] - 2026-03-19
 
 ### Added

@@ -1,0 +1,3 @@
+name: subject-outlier-review
+description: Review per-subject performance to identify likely outliers, distinguish bad data from difficult but valid cases, and document whether subject exclusion is justified before any filtered rerun.
+instructions_file: ../SKILL.md

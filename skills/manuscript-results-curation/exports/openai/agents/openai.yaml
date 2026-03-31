@@ -1,0 +1,3 @@
+name: manuscript-results-curation
+description: Curate manuscript results directly in LaTeX from experiment artifacts, including tables, plots, graphs, images, and detailed scientific interpretation tied to concrete outputs.
+instructions_file: ../SKILL.md
