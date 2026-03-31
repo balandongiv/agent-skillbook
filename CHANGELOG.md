@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - No unreleased changes yet.
 
+## [0.2.2] - 2026-03-31
+
+### Added
+- New canonical workflow skills for `handoff`, `handoff-resume`, `subject-outlier-review`, and `manuscript-results-curation`
+
+### Changed
+- Repository-wide skillbook content refresh across docs, templates, canonical skill files, exports, tooling, and validation coverage
+- Skill metadata, examples, instructions, and platform export assets were regenerated and synchronized across the repository
+- Version metadata was advanced to `0.2.2` for the full-worktree update
 ## [0.1.5] - 2026-03-31
 
 ### Added

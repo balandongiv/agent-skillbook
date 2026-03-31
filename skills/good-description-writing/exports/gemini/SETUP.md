@@ -52,7 +52,7 @@ Open your new Gem and try a few of the test prompts from `skills/good-descriptio
 3. Select **Good Description Writing**
 4. Start your conversation
 
-**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection — it does not auto-route based on message content.
+**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection â€” it does not auto-route based on message content.
 
 ---
 

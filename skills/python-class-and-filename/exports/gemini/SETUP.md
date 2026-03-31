@@ -52,7 +52,7 @@ Open your new Gem and try a few of the test prompts from `skills/python-class-an
 3. Select **Creating a Python Class and Choosing the Right Python Filename**
 4. Start your conversation
 
-**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection — it does not auto-route based on message content.
+**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection â€” it does not auto-route based on message content.
 
 ---
 
