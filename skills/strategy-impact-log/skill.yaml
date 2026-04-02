@@ -1,0 +1,33 @@
+slug: strategy-impact-log
+title: Strategy Impact Log
+summary: Record and track strategy proposals, code changes, performance metrics, issues encountered, and their cumulative effects on final results to maintain a durable audit trail of what was tried, what worked, and what didn't.
+when_to_use:
+  - when proposing a new strategy or approach to solving a problem
+  - when making code changes that affect results or behavior
+  - when comparing multiple strategies or approaches
+  - when tracking performance improvements or regressions
+  - when documenting why a particular approach was chosen or rejected
+  - when needing to understand the evolution of a solution over time
+when_not_to_use:
+  - when doing purely cosmetic code refactoring unrelated to results
+  - when the change is a simple bug fix with no alternative approaches considered
+  - when analyzing completed results without proposing changes
+tags:
+  - strategy
+  - tracking
+  - impact-analysis
+  - documentation
+  - decision-logging
+  - performance
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
