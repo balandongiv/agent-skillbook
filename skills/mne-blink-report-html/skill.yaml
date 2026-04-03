@@ -1,0 +1,32 @@
+slug: mne-blink-report-html
+title: MNE Blink Report HTML
+summary: Generate an MNE HTML report that plots blink windows one by one from epoch data, with configurable padding, channel sets, and subset selection such as true positives, false negatives, or false positives.
+when_to_use:
+  - when the user wants a blink-by-blink sanity check in HTML rather than a table alone
+  - when the task is to plot true positives, false negatives, false positives, or all detected blinks from epoch-based blink detection
+  - when the report should use MNE Report and show a fixed amount of time before and after each blink
+  - when the user refers to the same style of per-blink plotting used for the Strategy C Approach 3 true-positive report
+  - when a future agent needs a reusable plotting template instead of rewriting the report logic from scratch
+when_not_to_use:
+  - when the task is only to print aggregate metrics without any per-blink visualization
+  - when the input is not epoch-based MNE data and there is no compatible blink table to align against
+  - when the user wants interactive notebook exploration rather than a saved HTML artifact
+tags:
+  - mne
+  - report
+  - blink
+  - plotting
+  - html
+  - validation
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
