@@ -1,0 +1,3 @@
+name: beginner-moodle-programming-question
+description: Generate beginner-friendly Moodle programming questions with tags clarification, partial answer preload scaffolding, auto-created test cases, actionable hints, and feedback about common beginner mistakes.
+instructions_file: ../SKILL.md

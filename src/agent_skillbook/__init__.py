@@ -1,2 +1,2 @@
 """agent_skillbook - Portable repository of reusable agent skills."""
-__version__ = "0.2.2"
+__version__ = "0.2.3"

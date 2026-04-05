@@ -1,0 +1,30 @@
+slug: beginner-moodle-programming-question
+title: Beginner Moodle Programming Question
+summary: Generate beginner-friendly Moodle programming questions with tags clarification, partial answer preload scaffolding, auto-created test cases, actionable hints, and feedback about common beginner mistakes.
+when_to_use:
+  - when creating a Moodle programming question for beginner students
+  - when writing CodeRunner-style or auto-graded programming exercises
+  - when a prompt needs answer preload starter code instead of a full solution
+  - when the exercise should include test cases and beginner-focused feedback
+when_not_to_use:
+  - when the task is a full lesson plan instead of a single question
+  - when the user wants a complete worked solution with no student effort
+  - when the question is non-programming or purely theoretical
+tags:
+  - moodle
+  - programming
+  - beginner
+  - assessment
+  - testcases
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

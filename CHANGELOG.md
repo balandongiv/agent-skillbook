@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - No unreleased changes yet.
 
+## [0.2.3] - 2026-04-05
+
+### Changed
+- Synchronized repository version metadata so `VERSION`, `pyproject.toml`, `README.md`, and `src/agent_skillbook/__init__.py` all report `0.2.3`
+- Recorded the `0.2.3` release in the package changelog and reset the unreleased section for subsequent edits
+
 ## [0.2.2] - 2026-03-31
 
 ### Added
