@@ -15,9 +15,7 @@ import mne
 import numpy as np
 import pandas as pd
 
-from pyblinker.epoch_detection_strategy_a.epoch_blink_pipeline import (
-    prepare_epoch_detection_input,
-)
+from src.common.epoch_input import prepare_epoch_detection_input
 
 
 # ---------------------------
@@ -170,7 +168,7 @@ def build_plot_rows(predicted: pd.DataFrame, reference: pd.DataFrame, subset: st
         return [
             PlotRow(
                 epoch_index=int(row.epoch_index),
-                label="reference",
+                label="ground_truth",
                 ref_onset=float(row.blink_onset),
                 ref_duration=float(row.blink_duration),
                 pred_onset=None,
@@ -225,7 +223,7 @@ def plot_row(prepared, row: PlotRow, *, pad_s: float) -> plt.Figure:
             float(row.ref_onset + row.ref_duration),
             color="tab:green",
             alpha=0.18,
-            label="reference",
+            label="ground_truth",
         )
     if row.pred_onset is not None and row.pred_duration is not None:
         ax.axvspan(
