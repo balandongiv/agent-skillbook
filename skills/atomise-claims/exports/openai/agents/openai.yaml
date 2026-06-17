@@ -1,0 +1,3 @@
+name: atomise-claims
+description: Decompose any sentence, paragraph, or section into atomic, independently checkable factual claims so each can be verified, cited, or revised on its own.
+instructions_file: ../SKILL.md

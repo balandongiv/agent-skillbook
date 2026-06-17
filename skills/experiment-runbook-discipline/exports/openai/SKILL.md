@@ -167,3 +167,30 @@ If you changed scoring, preprocessing, evaluation logic, or any other result-aff
 - Tell the user which files to watch live.
 - Validate final artifacts and metrics.
 - If logic changed, increment prefix and rerun validated scopes.
+
+---
+
+## Compute placement and concurrency (multi-agent / sandboxed runners)
+
+When a coding sub-agent runs inside a restricted sandbox, **where** the heavy compute executes matters as
+much as the code itself.
+
+- **Sandboxed code-agents often cannot spawn OS process pools.** A `ProcessPoolExecutor` (or `fork`/`spawn`
+  multiprocessing) may silently fail or fall back to a GIL-bound thread pool that stalls — looking "alive" while
+  making no progress. Do not run heavy multiprocess sweeps *inside* such a sandbox. Pattern that works: the
+  sandboxed agent **authors/edits** the runner and does subprocess-only work (compile, single-figure render);
+  the **orchestrator/Manager runs the parallel sweep** in the real environment (full cores). A resumable
+  per-cell cache makes this hand-off seamless — kill the stalled run and re-launch with processes; finished
+  cells are reused.
+- **Detect the stall, don't trust the percent.** Watch a live progress file's *timestamp and delta*, not just
+  its percentage. Zero completed units over a minute on active compute means the executor is wedged — switch
+  execution mode rather than waiting.
+- **Never overlap a browser/UI automation step with the heavy compute.** A full-core sweep starves a
+  Selenium/Chrome (or any GUI) driver past its page-load timeout; the UI step times out on its first action.
+  Sequence: compute first, then UI/prose; or throttle workers if they must coexist.
+- **One distinct live-status file per concurrent runner.** If two runners share a progress JSON path they
+  clobber each other's state and corrupt your view of progress. Give each its own.
+- **Smoke-test one real unit before the full sweep**, especially for sub-agent-authored code. A 1-session run
+  in the correct environment catches swapped arguments, wrong interpreter/env, and path bugs cheaply.
+- **Verify the interpreter/environment actually used.** A sub-agent may invoke a system Python lacking the
+  project dependencies; confirm the run used the intended conda/venv.

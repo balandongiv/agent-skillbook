@@ -21,7 +21,7 @@ def render_gemini_gem(skill_dir: Path, output_dir: Path) -> None:
 
     import yaml
 
-    with open(yaml_path) as f:
+    with open(yaml_path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     slug = data.get("slug", skill_dir.name)
@@ -32,7 +32,7 @@ def render_gemini_gem(skill_dir: Path, output_dir: Path) -> None:
 
     instructions_content = ""
     if instructions_path.exists():
-        instructions_content = instructions_path.read_text()
+        instructions_content = instructions_path.read_text(encoding="utf-8")
 
     when_to_use_lines = "\n".join(f"- {item}" for item in when_to_use)
     when_not_to_use_lines = "\n".join(f"- {item}" for item in when_not_to_use)
@@ -54,7 +54,8 @@ def render_gemini_gem(skill_dir: Path, output_dir: Path) -> None:
         f"Apply these instructions when the user:\n\n"
         f"{when_to_use_lines}\n\n"
         f"Do not apply when:\n\n"
-        f"{when_not_to_use_lines}\n"
+        f"{when_not_to_use_lines}\n",
+        encoding="utf-8",
     )
 
     # Write SETUP.md
@@ -108,7 +109,8 @@ def render_gemini_gem(skill_dir: Path, output_dir: Path) -> None:
         f"1. Regenerate: `python tools/render_gemini_gem.py skills/{slug}`\n"
         f"2. Open the updated `GEM_INSTRUCTIONS.md`\n"
         f"3. Edit your Gem in the Gemini UI and replace the instructions\n"
-        f"4. Click **Save**\n"
+        f"4. Click **Save**\n",
+        encoding="utf-8",
     )
 
     print(f"Rendered Gemini export for '{slug}' -> {output_dir}")

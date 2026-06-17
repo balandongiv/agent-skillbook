@@ -1,0 +1,29 @@
+slug: telegram-heartbeat
+title: Telegram Agent Heartbeat and Notifications
+summary: Add a secret-safe Telegram heartbeat and notification layer to a long-running agent, with periodic health heartbeats, immediate urgent alerts, milestone updates, and anti-spam rate limiting.
+when_to_use:
+  - when a long-running or background agent should report liveness and progress to a human over Telegram
+  - when you need immediate alerts for blocking failures, missing credentials, or human-input-required events
+  - when you want milestone or status updates pushed to a chat without polling
+when_not_to_use:
+  - when the task is short-lived and a final summary in the conversation is enough
+  - when no Telegram bot token is available and one cannot be provisioned
+  - when notifications must go to a channel other than Telegram (adapt the transport instead)
+tags:
+  - observability
+  - notifications
+  - telegram
+  - long-running-agent
+  - heartbeat
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

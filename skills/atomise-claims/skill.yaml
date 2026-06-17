@@ -1,0 +1,29 @@
+slug: atomise-claims
+title: Atomise Claims into Atomic Statements
+summary: Decompose any sentence, paragraph, or section into atomic, independently checkable factual claims so each can be verified, cited, or revised on its own.
+when_to_use:
+  - when a sentence or paragraph bundles several factual claims that must be checked separately
+  - when preparing text for citation auditing, fact-checking, or proof extraction
+  - when a claim needs to be split before assigning evidence or a verdict
+when_not_to_use:
+  - when the text is already a single atomic claim
+  - when the goal is stylistic rewriting rather than claim-level verification
+  - when no downstream verification or evidence assignment will follow
+tags:
+  - verification
+  - fact-checking
+  - claims
+  - decomposition
+  - general
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

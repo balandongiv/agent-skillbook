@@ -20,7 +20,7 @@ def list_skills():
         if yaml_path.exists():
             try:
                 import yaml
-                with open(yaml_path) as f:
+                with open(yaml_path, encoding="utf-8") as f:
                     data = yaml.safe_load(f)
                 title = data.get("title", skill_dir.name)
                 summary = data.get("summary", "")

@@ -1,0 +1,3 @@
+name: citation-audit
+description: Decompose cited statements into atomic claims, cross-check whether each cited paper actually supports the claim, extract the exact supporting text from the abstract or full paper, and emit a structured JSON citation audit.
+instructions_file: ../SKILL.md

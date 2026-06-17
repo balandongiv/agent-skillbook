@@ -21,7 +21,7 @@ def render_claude_skill(skill_dir: Path, output_dir: Path) -> None:
 
     import yaml
 
-    with open(yaml_path) as f:
+    with open(yaml_path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     slug = data.get("slug", skill_dir.name)
@@ -35,7 +35,7 @@ def render_claude_skill(skill_dir: Path, output_dir: Path) -> None:
 
     instructions_content = ""
     if instructions_path.exists():
-        instructions_content = instructions_path.read_text()
+        instructions_content = instructions_path.read_text(encoding="utf-8")
 
     output_dir.mkdir(parents=True, exist_ok=True)
     skill_md = output_dir / "SKILL.md"
@@ -47,7 +47,8 @@ def render_claude_skill(skill_dir: Path, output_dir: Path) -> None:
         f"user-invocable: {str(user_invocable).lower()}\n"
         f"allowed-tools: {allowed_tools_str}\n"
         f"---\n\n"
-        f"{instructions_content}"
+        f"{instructions_content}",
+        encoding="utf-8",
     )
 
     print(f"Rendered Claude export for '{slug}' -> {output_dir}")

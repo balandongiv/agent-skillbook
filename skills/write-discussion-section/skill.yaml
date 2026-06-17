@@ -1,0 +1,29 @@
+slug: write-discussion-section
+title: Write Discussion Section with Defensible Claims
+summary: Draft or revise a discussion section that interprets the reported results without overclaiming, using hedged causal and novelty language, an honest limitations paragraph, and no numbers beyond those already in the results.
+when_to_use:
+  - when writing or rewriting a discussion that interprets verified results
+  - when claims need softening from causal/absolute to defensible academic language
+  - when adding an honest limitations paragraph grounded in the actual study scope
+when_not_to_use:
+  - when results have not been written/verified yet (write the results first)
+  - when the task is to report raw numbers rather than interpret them (use the results skill)
+  - when only citation checking is needed (use the citation-audit skill)
+tags:
+  - manuscript
+  - discussion
+  - scientific-writing
+  - overclaim-control
+  - limitations
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

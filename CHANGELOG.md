@@ -7,8 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- New skill `manuscript-final-qc`: a final pre-submission compile gate (clean compile; zero undefined
+  cites/refs; zero forbidden domain terms; zero leaked draft/editorial notes in the *rendered* PDF; numeric
+  spot-checks vs source artifacts; float-coverage check; verify-don't-edit). Derived from a real defect where a
+  "Pending refresh" draft note rendered into a published table.
+
 ### Changed
-- No unreleased changes yet.
+- `telegram-heartbeat`: added a "Start-of-task checklist (do this FIRST)" — start the daemon + send a startup
+  ping as the first actions; the daemon logs only failures (silence = success). Prevents the recurring
+  "no heartbeat received" miss (notifier never started, not broken).
+- `experiment-runbook-discipline`: added "Compute placement and concurrency" guidance — sandboxed code-agents
+  often cannot spawn process pools (run heavy sweeps orchestrator-side; sub-agent authors code only); detect
+  stalls by progress timestamp/delta; never overlap browser/UI automation with full-core compute; one status
+  file per runner; smoke-test one real unit; verify the interpreter/env actually used.
+- `citation-audit`: added `actual_text` sourcing guidance (reference-manager export, e.g. Zotero CSV
+  "Abstract Note" keyed by "Key"; flag-don't-fabricate when absent) and a UTF-8 encoding gotcha.
+- Render tooling (`render_openai_skill.py`, `render_claude_skill.py`, `render_gemini_gem.py`, `list_skills.py`):
+  read/write canonical files with explicit `encoding="utf-8"` — previously crashed (`UnicodeDecodeError`) on
+  non-ASCII content under platform default (e.g. Windows cp1252).
+- Regenerated Claude/OpenAI/Gemini exports for the changed skills.
+
+## [0.3.0] - 2026-06-17
+
+### Added
+- Seven new canonical skills derived from an EEG manuscript-orchestration workflow:
+  `telegram-heartbeat` (secret-safe agent heartbeat/notifications), `atomise-claims`
+  (decompose text into atomic claims), `citation-audit` (verify citation relevance + emit JSON audit),
+  `find-extra-analysis` (propose analyses from an abstract/results section, domain-general),
+  `literature-review-writing` (CSV/SQLite-grounded related work, no hallucination),
+  `write-results-section` (number-grounded results prose), and
+  `write-discussion-section` (defensible, hedged interpretation with limitations).
+- Rendered Claude/OpenAI/Gemini exports for all seven new skills.
+
+### Changed
+- Bumped repository version to 0.3.0 for the new-skills release.
 
 ## [0.2.3] - 2026-04-05
 

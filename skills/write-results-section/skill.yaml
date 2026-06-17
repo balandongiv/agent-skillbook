@@ -1,0 +1,29 @@
+slug: write-results-section
+title: Write Results Section from Verified Numbers
+summary: Draft or revise a results section as factual, number-grounded prose where every figure comes from verified artifacts (CSV/stats files), every table and figure is referenced and explained, and no number is invented.
+when_to_use:
+  - when writing or rewriting a results section from verified experiment outputs
+  - when results prose must match tables/figures exactly with no fabricated numbers
+  - when an orchestrator supplies the exact statistics and the prose must stay within them
+when_not_to_use:
+  - when the numbers are not yet computed or verified (compute/verify them first)
+  - when the task is interpretation/implications rather than reporting (use the discussion skill)
+  - when only building tables/figures from artifacts is needed, not narrative
+tags:
+  - manuscript
+  - results
+  - scientific-writing
+  - anti-fabrication
+  - reporting
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

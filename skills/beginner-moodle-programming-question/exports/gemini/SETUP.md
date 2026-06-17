@@ -25,7 +25,7 @@ In the left sidebar, click **Gems**.
 
 ### Step 3: Create a new Gem
 
-Click **New gem** button or the `+` icon.
+Click the **New gem** button or the "+" icon.
 
 ### Step 4: Name your Gem
 
@@ -33,15 +33,26 @@ Enter the name: **Beginner Moodle Programming Question**
 
 ### Step 5: Add instructions
 
-Open `GEM_INSTRUCTIONS.md` from this directory. Copy the full content after the comment lines and paste it into the instructions field.
+Open `GEM_INSTRUCTIONS.md` from this directory. Copy the full content (after the HTML comment lines) and paste it into the instructions field.
 
 ### Step 6: Save
 
 Click **Save** to create the Gem.
-
 ### Step 7: Test your Gem
 
-Try the prompts in `skills/beginner-moodle-programming-question/TESTS.md` to verify the Gem follows the intended question-generation workflow.
+Open your new Gem and try a few of the test prompts from `skills/beginner-moodle-programming-question/TESTS.md` to verify it is working correctly.
+
+
+---
+
+## Using the Gem
+
+1. Go to [gemini.google.com](https://gemini.google.com)
+2. Click **Gems** in the sidebar
+3. Select **Beginner Moodle Programming Question**
+4. Start your conversation
+
+**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection — it does not auto-route based on message content.
 
 ---
 
@@ -49,7 +60,7 @@ Try the prompts in `skills/beginner-moodle-programming-question/TESTS.md` to ver
 
 When this skill is updated:
 
-1. Refresh the generated instructions if needed.
-2. Open the Gem in Gemini.
-3. Replace the old instructions with the updated `GEM_INSTRUCTIONS.md` content.
-4. Save the Gem again.
+1. Regenerate: `python tools/render_gemini_gem.py skills/beginner-moodle-programming-question`
+2. Open the updated `GEM_INSTRUCTIONS.md`
+3. Edit your Gem in the Gemini UI and replace the instructions
+4. Click **Save**

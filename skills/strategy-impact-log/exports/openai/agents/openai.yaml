@@ -1,0 +1,3 @@
+name: strategy-impact-log
+description: Record and track strategy proposals, code changes, performance metrics, issues encountered, and their cumulative effects on final results to maintain a durable audit trail of what was tried, what worked, and what didn't.
+instructions_file: ../SKILL.md

@@ -4,8 +4,12 @@ All notable changes to this skill are documented here.
 
 ## [Unreleased]
 
-### Changed
-- No unreleased changes yet.
+### Added
+- "Compute placement and concurrency (multi-agent / sandboxed runners)" section: sandboxed code-agents often
+  cannot spawn OS process pools (silent GIL-bound stall) so heavy parallel sweeps must run orchestrator-side
+  while the sub-agent authors code + does subprocess-only work; detect stalls via progress-file timestamp/delta
+  not percent; never overlap browser/UI automation with full-core compute; one distinct live-status file per
+  runner; smoke-test one real unit before the full sweep; verify the actual interpreter/environment used.
 
 ## [0.1.1] - 2026-03-19
 

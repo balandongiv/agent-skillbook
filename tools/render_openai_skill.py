@@ -21,7 +21,7 @@ def render_openai_skill(skill_dir: Path, output_dir: Path) -> None:
 
     import yaml
 
-    with open(yaml_path) as f:
+    with open(yaml_path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
 
     slug = data.get("slug", skill_dir.name)
@@ -30,7 +30,7 @@ def render_openai_skill(skill_dir: Path, output_dir: Path) -> None:
 
     instructions_content = ""
     if instructions_path.exists():
-        instructions_content = instructions_path.read_text()
+        instructions_content = instructions_path.read_text(encoding="utf-8")
 
     # Write SKILL.md
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -40,7 +40,8 @@ def render_openai_skill(skill_dir: Path, output_dir: Path) -> None:
         f"name: {slug}\n"
         f"description: {description}\n"
         f"---\n\n"
-        f"{instructions_content}"
+        f"{instructions_content}",
+        encoding="utf-8",
     )
 
     # Write agents/openai.yaml
@@ -50,7 +51,8 @@ def render_openai_skill(skill_dir: Path, output_dir: Path) -> None:
     openai_yaml.write_text(
         f"name: {slug}\n"
         f"description: {description}\n"
-        f"instructions_file: ../SKILL.md\n"
+        f"instructions_file: ../SKILL.md\n",
+        encoding="utf-8",
     )
 
     print(f"Rendered OpenAI export for '{slug}' -> {output_dir}")

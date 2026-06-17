@@ -1,0 +1,3 @@
+name: telegram-heartbeat
+description: Add a secret-safe Telegram heartbeat and notification layer to a long-running agent, with periodic health heartbeats, immediate urgent alerts, milestone updates, and anti-spam rate limiting.
+instructions_file: ../SKILL.md

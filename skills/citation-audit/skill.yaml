@@ -1,0 +1,29 @@
+slug: citation-audit
+title: Citation Relevance Audit
+summary: Decompose cited statements into atomic claims, cross-check whether each cited paper actually supports the claim, extract the exact supporting text from the abstract or full paper, and emit a structured JSON citation audit.
+when_to_use:
+  - when you need to verify that citations in a manuscript actually support the statements they back
+  - when auditing a draft for irrelevant, mismatched, or unsupported citations before submission
+  - when you must produce a documented, machine-readable citation audit with supporting evidence
+when_not_to_use:
+  - when no source text (abstract or full paper) is available for the cited keys
+  - when the task is to add new citations rather than verify existing ones
+  - when only stylistic editing is requested, not citation verification
+tags:
+  - citations
+  - verification
+  - manuscript
+  - fact-checking
+  - hallucination-control
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

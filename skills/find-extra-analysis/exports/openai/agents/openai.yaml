@@ -1,0 +1,3 @@
+name: find-extra-analysis
+description: Given a paper's abstract or results section, propose additional analyses that would strengthen, stress-test, or extend the work, ranked by value and feasibility, in a domain-general way.
+instructions_file: ../SKILL.md

@@ -1,3 +1,3 @@
 name: mne-blink-report-html
-description: Generate an MNE Report HTML that plots blink windows one by one from epoch-based blink data, including true positives, false negatives, false positives, or all blinks, with configurable padding before and after each blink.
+description: Generate an MNE HTML report that plots blink windows one by one from epoch data, with configurable padding, channel sets, and subset selection such as true positives, false negatives, or false positives.
 instructions_file: ../SKILL.md

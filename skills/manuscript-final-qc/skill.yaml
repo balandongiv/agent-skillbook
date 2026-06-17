@@ -1,0 +1,31 @@
+slug: manuscript-final-qc
+title: Manuscript Final Compile QC Gate
+summary: Run a final pre-submission gate on a LaTeX manuscript — clean compile, zero undefined citations/references, no forbidden domain terms, no leaked draft/editorial notes in the rendered PDF, and numeric spot-checks against source artifacts.
+when_to_use:
+  - when a paper or report is "done" and needs a final pre-submission or pre-handoff quality gate
+  - after a writing or editing pass that changed prose, tables, figures, or citations
+  - when you must prove a manuscript compiles cleanly and contains no stale, forbidden, or draft content
+  - when numbers in the manuscript must be confirmed to match the source CSVs or result artifacts
+when_not_to_use:
+  - when actively drafting prose (use the writing or curation skills instead)
+  - when no compiled document exists yet, or the build toolchain is unavailable
+  - when the request is to change content rather than verify a finished document
+tags:
+  - manuscript
+  - latex
+  - quality-control
+  - verification
+  - reproducibility
+  - anti-fabrication
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

@@ -1,156 +1,66 @@
-# Strategy Impact Log - Setup for Gemini
+# Gemini Gem Setup Guide: Strategy Impact Log
 
-## Overview
+This guide walks you through creating a Gemini Gem for this skill.
 
-The Strategy Impact Log skill provides a structured approach to recording and tracking strategies, code changes, and their performance impacts. This setup guide explains how to integrate this skill into your Gemini-based workflow.
+**Note:** Gemini Gems must be created manually through the Gemini web UI. This repository cannot auto-register Gems.
 
-## Installation
+---
 
-1. Copy the Strategy Impact Log skill directory to your agent skillbook
-2. Ensure the skill manifest includes entries for:
-   - `slug: strategy-impact-log`
-   - `title: Strategy Impact Log`
-   - `when_to_use`: Strategy proposal and tracking scenarios
+## Prerequisites
 
-## Basic Usage
+- A Google account with access to [gemini.google.com](https://gemini.google.com)
+- The `GEM_INSTRUCTIONS.md` file from this directory
 
-### Creating a New Strategy Entry
+---
 
-When you identify a strategy worth pursuing:
+## Step-by-step setup
 
-1. Create or update your project's `STRATEGY_LOG.md` file
-2. Add a new section with the strategy name and timestamp
-3. Fill in: Proposal, Rationale, Status
-4. Update as work progresses with Implementation, Metrics, Issues
-5. Conclude with Outcome and Learnings
+### Step 1: Open Gemini
 
-### Template
+Go to [gemini.google.com](https://gemini.google.com) and sign in.
 
-```markdown
-## Strategy: [Name]
+### Step 2: Navigate to Gems
 
-**Date**: YYYY-MM-DD
-**Proposal**: [What and why]
-**Rationale**: [Expected benefits]
-**Status**: Proposed / In Progress / Completed / Abandoned
+In the left sidebar, click **Gems**.
 
-### Implementation
-[Files and commits as work happens]
+### Step 3: Create a new Gem
 
-### Performance & Metrics
-[Before/after numbers with sources]
+Click the **New gem** button or the "+" icon.
 
-### Issues Encountered
-[Problems and how they were resolved]
+### Step 4: Name your Gem
 
-### Outcome
-[Did it work? Why or why not?]
+Enter the name: **Strategy Impact Log**
 
-### Learnings
-[What did we learn? What would we do differently?]
-```
+### Step 5: Add instructions
 
-## Configuration
+Open `GEM_INSTRUCTIONS.md` from this directory. Copy the full content (after the HTML comment lines) and paste it into the instructions field.
 
-### Enable Auto-Invocation
+### Step 6: Save
 
-If your system supports auto-invocation, enable this skill to activate when:
-- A new strategy or approach is being discussed
-- Multiple approaches are being compared
-- Implementation results need to be evaluated
-- Historical decisions need to be understood
+Click **Save** to create the Gem.
+### Step 7: Test your Gem
 
-### Link to Code Repository
+Open your new Gem and try a few of the test prompts from `skills/strategy-impact-log/TESTS.md` to verify it is working correctly.
 
-For maximum usefulness, ensure your strategy log is stored in the same repository as your code:
-- Location: `development_strategy/STRATEGY_LOG.md` (or similar)
-- Shared with all team members/agents working on the project
-- Updated along with code commits
 
-## Integration Points
+---
 
-### With Version Control
+## Using the Gem
 
-Record commit hashes that implement each strategy:
-```markdown
-**Commits**:
-- `abc1234`: Initial implementation of cache logic
-- `def5678`: Fix edge case handling
-```
+1. Go to [gemini.google.com](https://gemini.google.com)
+2. Click **Gems** in the sidebar
+3. Select **Strategy Impact Log**
+4. Start your conversation
 
-This creates a bidirectional link between strategy decisions and code changes.
+**Remember:** Select the Gem before asking your question. Gemini requires manual Gem selection — it does not auto-route based on message content.
 
-### With Testing/Validation
+---
 
-Include references to test files or validation scripts that measure impact:
-```markdown
-**Metrics Source**: scripts/benchmark.py on sample_data/dev_epo.fif
-```
+## Updating the Gem
 
-### With Documentation
+When this skill is updated:
 
-Link strategy decisions to design documents or architecture notes that explain the reasoning in more detail.
-
-## Workflow Integration
-
-### Before Implementation
-
-1. Propose strategy in strategy log
-2. Document rationale and expected benefits
-3. Set status to "Proposed"
-4. Get feedback/approval
-
-### During Implementation
-
-1. Update implementation section with file changes
-2. Add commit hashes as commits are made
-3. Update status to "In Progress"
-4. Note any deviations from proposal
-
-### After Implementation
-
-1. Run metrics/tests
-2. Document performance impact
-3. Record any issues encountered
-4. Update status to "Completed" or "Abandoned"
-5. Extract and document learnings
-
-## Best Practices
-
-- **Timing**: Create entries before implementing, not after
-- **Specificity**: Include file paths, line ranges, and commit hashes
-- **Metrics**: Always measure impact with real data
-- **Honesty**: Document failures and trade-offs, not just successes
-- **Traceability**: Link every strategy to code changes
-- **Reflection**: End each entry with learnings and future application
-- **History**: Keep old entries; they document the solution's evolution
-
-## Examples
-
-See the full `EXAMPLES.md` file for detailed examples of:
-- Simple performance improvement
-- Failed strategy with learnings
-- A/B strategy comparison
-- Iterative refinement
-- Abandoned ideas with reasoning
-
-## Troubleshooting
-
-**Issue**: Strategy entries become too verbose
-- **Solution**: Use structured format; keep entries focused on what matters
-
-**Issue**: Metrics are hard to interpret later
-- **Solution**: Always cite data sources (which file, which test, exact path)
-
-**Issue**: Comparing strategies is difficult
-- **Solution**: Use identical metrics across all strategies being compared
-
-**Issue**: Old entries seem irrelevant
-- **Solution**: They document why certain paths weren't taken; preserve them as evidence
-
-## Next Steps
-
-1. Set up your first strategy log file in the project repository
-2. Create an entry for a strategy currently under consideration
-3. Update it as work progresses
-4. Use it to inform future strategy decisions
+1. Regenerate: `python tools/render_gemini_gem.py skills/strategy-impact-log`
+2. Open the updated `GEM_INSTRUCTIONS.md`
+3. Edit your Gem in the Gemini UI and replace the instructions
+4. Click **Save**

@@ -1,0 +1,3 @@
+name: write-results-section
+description: Draft or revise a results section as factual, number-grounded prose where every figure comes from verified artifacts (CSV/stats files), every table and figure is referenced and explained, and no number is invented.
+instructions_file: ../SKILL.md

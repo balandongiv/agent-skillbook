@@ -1,0 +1,3 @@
+name: manuscript-final-qc
+description: Run a final pre-submission gate on a LaTeX manuscript — clean compile, zero undefined citations/references, no forbidden domain terms, no leaked draft/editorial notes in the rendered PDF, and numeric spot-checks against source artifacts.
+instructions_file: ../SKILL.md

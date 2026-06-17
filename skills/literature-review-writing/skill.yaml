@@ -1,0 +1,29 @@
+slug: literature-review-writing
+title: Knowledge-Library-Grounded Literature Review Writing
+summary: Write or expand a literature review / related-work section using only a provided knowledge library (CSV or SQLite), citing only keys that exist in that library, with no invented papers, facts, or citation keys.
+when_to_use:
+  - when writing or expanding a related-work / literature-review section from a curated source library
+  - when citations must be restricted to a known CSV/SQLite knowledge base to prevent hallucination
+  - when grouping prior work into coherent themed paragraphs with verifiable citations
+when_not_to_use:
+  - when no structured knowledge library (CSV/SQLite) is available to ground the citations
+  - when the task is to discover brand-new papers from the open web rather than write from a library
+  - when only citation verification is needed (use the citation-audit skill instead)
+tags:
+  - manuscript
+  - literature-review
+  - related-work
+  - citations
+  - hallucination-control
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

@@ -1,0 +1,3 @@
+name: literature-review-writing
+description: Write or expand a literature review / related-work section using only a provided knowledge library (CSV or SQLite), citing only keys that exist in that library, with no invented papers, facts, or citation keys.
+instructions_file: ../SKILL.md

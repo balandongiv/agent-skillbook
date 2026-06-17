@@ -2,6 +2,11 @@
 
 All notable changes to the Strategy Impact Log skill are documented here.
 
+## [Unreleased]
+
+### Changed
+- No unreleased changes yet.
+
 ## [1.0.0] - 2026-04-02
 
 ### Initial Release

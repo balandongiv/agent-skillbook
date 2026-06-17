@@ -1,0 +1,3 @@
+name: write-discussion-section
+description: Draft or revise a discussion section that interprets the reported results without overclaiming, using hedged causal and novelty language, an honest limitations paragraph, and no numbers beyond those already in the results.
+instructions_file: ../SKILL.md

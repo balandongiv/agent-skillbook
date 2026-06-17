@@ -1,0 +1,29 @@
+slug: find-extra-analysis
+title: Find Extra Analyses from Abstract or Results
+summary: Given a paper's abstract or results section, propose additional analyses that would strengthen, stress-test, or extend the work, ranked by value and feasibility, in a domain-general way.
+when_to_use:
+  - when you have an abstract or results section and want ideas for additional analyses or experiments
+  - when reviewing your own draft for gaps, missing controls, or under-explored angles
+  - when planning a revision or rebuttal and need defensible, feasibility-ranked analysis proposals
+when_not_to_use:
+  - when the request is to execute a specific known analysis rather than to discover candidates
+  - when no abstract/results/method context is available to ground proposals
+  - when only writing or formatting is requested, not analysis ideation
+tags:
+  - research
+  - analysis-planning
+  - ideation
+  - peer-review
+  - general
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

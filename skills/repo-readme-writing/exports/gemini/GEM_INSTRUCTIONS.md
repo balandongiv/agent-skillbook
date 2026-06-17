@@ -130,5 +130,5 @@ Apply these instructions when the user:
 Do not apply when:
 
 - when writing internal wiki documentation
-- when writing API reference docs
+- when writing API ground_truth docs
 - when the audience is only experienced developers who know the project
