@@ -1,0 +1,32 @@
+slug: agent-orchestration-manager
+title: Agent Orchestration Manager
+summary: Act as the manager of a multi-agent workflow — route each piece of work to the right kind of agent (reasoning, coding, verifying), decide when to delegate versus do it inline, decompose goals into bounded independent tasks, verify every worker's output yourself, own the mainline and consolidation, and never silently do the worker's job.
+when_to_use:
+  - when coordinating multiple agents or models of different kinds toward one goal
+  - when deciding whether to delegate a task to a sub-agent or handle it inline
+  - when decomposing a large goal into bounded, independently verifiable sub-tasks
+  - when a worker has returned output or results that must be checked before acceptance
+  - when protecting a mainline or source of authority and owning consolidation of parallel work
+when_not_to_use:
+  - when the task is small enough to just do directly and delegation overhead is not justified
+  - when you are the worker executing a single bounded task rather than coordinating others
+  - when only a single agent and a single step are involved
+tags:
+  - orchestration
+  - delegation
+  - multi-agent
+  - management
+  - verification
+  - routing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

@@ -1,0 +1,3 @@
+name: agent-orchestration-manager
+description: Act as the manager of a multi-agent workflow — route each piece of work to the right kind of agent (reasoning, coding, verifying), decide when to delegate versus do it inline, decompose goals into bounded independent tasks, verify every worker's output yourself, own the mainline and consolidation, and never silently do the worker's job.
+instructions_file: ../SKILL.md

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-21
+
+### Added
+- New skill `agent-orchestration-manager`: how to be the manager of a multi-agent workflow —
+  route by kind of work (reason/code/verify), delegate-vs-inline judgment, decompose into bounded
+  independent tasks, specify-don't-hope task specs with environment provisioning, verify every
+  worker's output yourself (never trust the report), stay the manager (no silent hand-edits), own
+  the mainline and consolidation, and report truthfully. Umbrella over `codex-driven-coding`,
+  `worktree-parallel-agents`, and `chatgpt-ui-reasoning`.
+- Rendered Claude/OpenAI/Gemini exports for the new skill.
+
 ## [0.4.1] - 2026-07-21
 
 ### Added
