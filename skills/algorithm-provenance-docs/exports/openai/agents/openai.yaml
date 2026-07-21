@@ -1,0 +1,3 @@
+name: algorithm-provenance-docs
+description: Document every explored algorithm with a fixed integration report — source paper/repo, hypothesis, method, pre-registered falsifiers, exploratory results with caveats, and how to select, run, and test it independently — so future agents can evaluate or modify it without reconstructing history.
+instructions_file: ../SKILL.md

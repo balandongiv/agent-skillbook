@@ -1,5 +1,15 @@
 # Changelog — ChatGPT UI Batch Screener
 
+## [Unreleased]
+
+### Added
+- Back-filled the canonical `skill.yaml` (slug, title, summary, when_to_use, when_not_to_use,
+  tags, invocation, platform_overrides) that was missing from the initial commit.
+- "Machine-aware profile and driver resolution" note: resolve the Chrome binary, chromedriver
+  (from the shared `academic_paper_maker\apm\browser` folder), and ChatGPT profile per machine
+  via the shared hostname-keyed registry, instead of hardcoding one machine's `chrome-profile`.
+- Regenerated the OpenAI and Gemini exports so the skill passes validation.
+
 ## [0.1.0] - 2026-06-20
 
 ### Added

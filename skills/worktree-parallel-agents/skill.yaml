@@ -1,0 +1,32 @@
+slug: worktree-parallel-agents
+title: Parallel Agents in Git Worktrees
+summary: Run independent agent workstreams in isolated git worktrees — one branch per workstream, git-ignored runtime config (e.g. paths.yaml) copied into each tree, workers that never merge to the mainline — and consolidate later by assembling files rather than raw-merging.
+when_to_use:
+  - when several coding agents work in parallel and must not collide on one working tree
+  - when each workstream should own its own branch and be independently testable
+  - when workers run in fresh checkouts that lack git-ignored runtime config needed to resolve real inputs
+  - when parallel branches share a byte-identical harness and must be consolidated cleanly at the end
+  - when the mainline must stay protected from direct worker pushes
+when_not_to_use:
+  - when a single agent does one change on one branch and no parallelism is involved
+  - when workstreams are tightly coupled and cannot be isolated without constant cross-merges
+  - when the change is trivial and the worktree overhead is not justified
+tags:
+  - git-worktree
+  - parallelism
+  - branching
+  - multi-agent
+  - consolidation
+  - reproducibility
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

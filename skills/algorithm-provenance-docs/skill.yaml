@@ -1,0 +1,32 @@
+slug: algorithm-provenance-docs
+title: Algorithm Provenance Documentation
+summary: Document every explored algorithm with a fixed integration report — source paper/repo, hypothesis, method, pre-registered falsifiers, exploratory results with caveats, and how to select, run, and test it independently — so future agents can evaluate or modify it without reconstructing history.
+when_to_use:
+  - when an explored or integrated algorithm must be documented so others can understand and reuse it
+  - when several algorithms are consolidated and each needs a consistent, comparable write-up
+  - when provenance (source paper, repo, method, hypothesis) must be preserved for audit
+  - when future agents must be able to select, run, and test an algorithm without reading the git history
+  - when a per-algorithm report must record falsifiers and exploratory results with honest caveats
+when_not_to_use:
+  - when documenting end-user product features rather than research/algorithm provenance
+  - when a single throwaway script has no reuse or audit value
+  - when the task is writing algorithm code rather than its provenance documentation
+tags:
+  - documentation
+  - provenance
+  - algorithms
+  - reproducibility
+  - audit-trail
+  - integration
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

@@ -1,6 +1,6 @@
 ---
 name: scopus-ris-export
-description: Automate Scopus Advanced Search and bulk RIS export using Selenium. Avoids false-positive modal detection, polls three download directories, restarts Chrome between batches, and falls back to per-year sub-queries when full exports fail.
+description: Automate Scopus Advanced Search and bulk RIS export using Selenium on a machine-resolved persistent Chrome profile. Avoids false-positive modal detection, polls three download directories, restarts Chrome between batches to dodge the per-session export cap, and falls back to per-year sub-queries when full exports exceed the result limit.
 disable-model-invocation: false
 user-invocable: true
 allowed-tools: []
@@ -49,8 +49,52 @@ and a Chrome restart between batches to prevent session-level export cap failure
 14. **Update** `scopus_query_log.csv` status to `done`.
 15. **Merge** if multiple batch files exist, deduplicating by title (first 120 chars, lowercased).
 
+## Machine-aware profile and driver resolution
+
+This automation runs on a **small, fixed set of machines**, and each has its own Chrome binary,
+WebDrivers, and profile. The agent must **detect the current machine and resolve its paths
+automatically** — never hardcode one machine's Chrome/profile/chromedriver into a run. The same
+hostname-keyed registry is shared by every Selenium skill in the project (Scopus export and the
+ChatGPT-UI skills), so the driver binaries are defined once and the Scopus profile stays separate
+from the ChatGPT profile.
+
+```python
+import os, socket
+
+# Shared WebDrivers (chromedriver.exe / geckodriver.exe). Reference in place — do not commit.
+_APM_BROWSER = r"C:\Users\balan\IdeaProjects\academic_paper_maker\apm\browser"
+
+# Keyed by hostname (lowercased). Three machines are in rotation; only this one ("rpb") is
+# filled in — add the other two when they are set up.
+MACHINES = {
+    "rpb": {  # this computer
+        "chromedriver": rf"{_APM_BROWSER}\chromedriver.exe",
+        "chrome_exe":   r"C:\Users\balan\AppData\Local\Google\Chrome\Application\chrome.exe",
+        "profiles": {"scopus": r"%LOCALAPPDATA%\Google\Chrome\User Data"},  # profile: "Default"
+    },
+    # "MACHINE-2": { ... TODO ... },
+    # "MACHINE-3": { ... TODO ... },
+}
+
+def resolve_scopus():
+    host = socket.gethostname().lower()
+    if host not in MACHINES:
+        raise RuntimeError(
+            f"Unknown machine '{host}': register it in MACHINES before running; "
+            f"never fall back to another machine's paths."
+        )
+    m = MACHINES[host]
+    return m["chromedriver"], m["chrome_exe"], os.path.expandvars(m["profiles"]["scopus"])
+```
+
+An unregistered machine must **stop and ask to be registered**, never silently use another
+machine's profile. This registry is the single source for browser/driver/profile paths; the
+`Configuration reference` below reads from it rather than hardcoding.
+
 ## Rules
 
+- Always resolve Chrome, the chromedriver, and the profile from the machine registry by hostname;
+  never hardcode one machine's paths, and stop loudly on an unregistered machine.
 - Always kill Chrome and remove the LOCK file before building a new driver session.
 - Always snapshot poll directories before triggering the export, using the snapshot as baseline.
 - Never match `data-testid*="export"` as the export modal — require a count input inside the element.
@@ -60,23 +104,30 @@ and a Chrome restart between batches to prevent session-level export cap failure
 - Always restart Chrome between export batches on long sessions.
 - Never run Scopus and ChatGPT automation simultaneously if they share a Chrome profile.
 
-## Critical bug to avoid
+## Common mistakes to avoid
 
-`data-testid="exportRefinement"` ("Export filter counts" button) matches `[data-testid*="export"]`.
-This is NOT the export modal. Never click it — the download will never start.
+- **False-positive modal**: `data-testid="exportRefinement"` ("Export filter counts" button) matches
+  `[data-testid*="export"]`. This causes the script to click the wrong element and stall.
+- **Daily cap hit silently**: Scopus stops delivering files without error after ~7–8 exports. The modal
+  still appears and looks normal. Track export session count.
+- **Download goes to wrong dir**: If the Chrome profile was previously used with a different download path,
+  the file lands in `Downloads/` not `_staging/`. Always poll all three.
+- **LOCK file blocking new session**: If a previous Chrome crashed, the LOCK file remains. Always remove it.
+- **Select-all only selects the page**: The primary checkbox selects only visible results. The secondary
+  banner "Select all N documents" must also be clicked for full export.
 
 ## Configuration reference
 
 ```python
-CHROME_EXE  = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-PROFILE_DIR = r"C:\selenium\chrome-profile"   # BINDING — never change
+# Resolve per machine (see "Machine-aware profile and driver resolution"); do not hardcode.
+CHROMEDRIVER, CHROME_EXE, PROFILE_DIR = resolve_scopus()
 
 POLL_DIRS = [
     RAW_DIR / "_staging",
-    Path(r"C:\Users\rpb\Downloads"),
-    Path(r"C:\Users\rpb\Desktop"),
+    Path(r"C:\Users\<user>\Downloads"),
+    Path(r"C:\Users\<user>\Desktop"),
 ]
-POLL_TIMEOUT    = 300
-BETWEEN_SLEEP   = 3
-BATCH_THRESHOLD = 1100
+POLL_TIMEOUT    = 300    # seconds per batch
+BETWEEN_SLEEP   = 3      # seconds between filesystem polls
+BATCH_THRESHOLD = 1100   # split if result count exceeds this
 ```

@@ -1,0 +1,32 @@
+slug: telegram-pipeline-heartbeat
+title: Telegram Pipeline Heartbeat
+summary: Add a secret-safe Telegram heartbeat to any long-running pipeline. The state file contains no secrets. Sends tqdm-style progress bars, rich multi-section status messages, milestone alerts, and urgent notifications, with a restart-safe daemon that manages its own PID.
+when_to_use:
+  - when a long-running research pipeline needs periodic Telegram status updates with live metrics
+  - when progress should be shown as tqdm-style bars with an ETA derived from timestamp history
+  - when secrets must be loaded only at send time and never written to state files, logs, or commits
+  - when a background heartbeat daemon must be restart-safe via PID management
+  - when milestone and urgent notifications must be sent alongside routine heartbeats
+when_not_to_use:
+  - when the task is short-lived and does not need heartbeats or progress notifications
+  - when no Telegram (or equivalent) notification channel is desired
+  - when building the pipeline logic itself rather than its observability layer
+tags:
+  - telegram
+  - heartbeat
+  - notifications
+  - progress-bar
+  - monitoring
+  - secret-safety
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

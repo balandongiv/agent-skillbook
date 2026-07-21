@@ -1,0 +1,32 @@
+slug: chatgpt-ui-batch-screener
+title: ChatGPT UI Batch Screener
+summary: Automate the ChatGPT web UI via Selenium to screen academic papers in batches of 5. Uses pure JavaScript for all element checks (never is_displayed()), polls for streaming completion, extracts decisions as JSON, and saves raw fallbacks. Shares a persistent Chrome profile with Scopus — never run the two simultaneously.
+when_to_use:
+  - when screening many academic papers through the ChatGPT web UI and structured JSON decisions are needed
+  - when submitting batches of paper metadata (title, abstract, year, source) and parsing include/exclude/maybe decisions
+  - when working with a persistent logged-in Chrome profile without an API key
+  - when responses must be saved per batch with a raw fallback for later recovery
+  - when the screening run must be resumable across restarts
+when_not_to_use:
+  - when the goal is single-item reasoning or triage rather than bulk JSON extraction across many papers
+  - when an official API is available and preferable to UI automation
+  - when the task is not paper screening at all
+tags:
+  - chatgpt-ui
+  - selenium
+  - screening
+  - literature-review
+  - json-extraction
+  - automation
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

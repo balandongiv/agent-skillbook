@@ -1,0 +1,32 @@
+slug: codex-driven-coding
+title: Codex-Driven Coding with Tiered Intelligence
+summary: Route code changes to an autonomous coding agent (e.g. OpenAI Codex) at a task-matched intelligence tier — cheap/fast tiers for boilerplate, high-reasoning tiers for algorithm or debugging work, escalate on failure — behind a bounded written handoff, while a separate planning/verifying model owns scope, provisions the environment, and never hand-edits the worker's code.
+when_to_use:
+  - when coding work is delegated to an autonomous code agent while another model acts as manager/verifier
+  - when the same repo runs many coding tasks of varying difficulty and the intelligence tier should match the task
+  - when a coding task must be handed off with an exact, bounded scope (files, run command, done criteria)
+  - when a worker runs in an isolated worktree or sandbox and needs its runtime environment provisioned first
+  - when a lower-tier attempt failed and the task should be escalated to a stronger reasoning tier
+when_not_to_use:
+  - when the reasoning task is ideation, triage, or planning rather than producing code changes
+  - when a trivial one-line edit is faster to make directly than to hand off
+  - when there is no separation of duties and the same agent both writes and blindly self-approves without any verification
+tags:
+  - codex
+  - code-agent
+  - orchestration
+  - delegation
+  - handoff
+  - model-routing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

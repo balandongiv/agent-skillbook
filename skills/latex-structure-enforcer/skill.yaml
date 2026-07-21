@@ -1,0 +1,32 @@
+slug: latex-structure-enforcer
+title: LaTeX Thesis Structure Enforcer
+summary: Migrate flat or semi-flat LaTeX thesis files into the one-paragraph-per-file hierarchy. Every prose paragraph goes in p###/paragraph.tex, tables in tables/tab_NNN.tex, figures in figures/fig_NNN.tex, and chapter/section/subsection aggregators wire everything through \input{} chains with writing/-relative paths. Originals are archived, never deleted.
+when_to_use:
+  - when restructuring flat LaTeX thesis files into a one-paragraph-per-file hierarchy
+  - when tables and figures must be extracted into their own files and wired via \input{} chains
+  - when aggregator files must hold structure only and prose must live in paragraph files
+  - when \input{} paths must be made relative to the writing/ root
+  - when original flat files must be archived rather than deleted during migration
+when_not_to_use:
+  - when the LaTeX project already follows the one-paragraph-per-file structure
+  - when the task is writing new prose rather than restructuring existing files
+  - when the document is not a LaTeX thesis with this structural requirement
+tags:
+  - latex
+  - thesis-structure
+  - refactoring
+  - file-organization
+  - migration
+  - academic-writing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

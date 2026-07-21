@@ -41,8 +41,52 @@ and a Chrome restart between batches to prevent session-level export cap failure
 14. **Update** `scopus_query_log.csv` status to `done`.
 15. **Merge** if multiple batch files exist, deduplicating by title (first 120 chars, lowercased).
 
+## Machine-aware profile and driver resolution
+
+This automation runs on a **small, fixed set of machines**, and each has its own Chrome binary,
+WebDrivers, and profile. The agent must **detect the current machine and resolve its paths
+automatically** — never hardcode one machine's Chrome/profile/chromedriver into a run. The same
+hostname-keyed registry is shared by every Selenium skill in the project (Scopus export and the
+ChatGPT-UI skills), so the driver binaries are defined once and the Scopus profile stays separate
+from the ChatGPT profile.
+
+```python
+import os, socket
+
+# Shared WebDrivers (chromedriver.exe / geckodriver.exe). Reference in place — do not commit.
+_APM_BROWSER = r"C:\Users\balan\IdeaProjects\academic_paper_maker\apm\browser"
+
+# Keyed by hostname (lowercased). Three machines are in rotation; only this one ("rpb") is
+# filled in — add the other two when they are set up.
+MACHINES = {
+    "rpb": {  # this computer
+        "chromedriver": rf"{_APM_BROWSER}\chromedriver.exe",
+        "chrome_exe":   r"C:\Users\balan\AppData\Local\Google\Chrome\Application\chrome.exe",
+        "profiles": {"scopus": r"%LOCALAPPDATA%\Google\Chrome\User Data"},  # profile: "Default"
+    },
+    # "MACHINE-2": { ... TODO ... },
+    # "MACHINE-3": { ... TODO ... },
+}
+
+def resolve_scopus():
+    host = socket.gethostname().lower()
+    if host not in MACHINES:
+        raise RuntimeError(
+            f"Unknown machine '{host}': register it in MACHINES before running; "
+            f"never fall back to another machine's paths."
+        )
+    m = MACHINES[host]
+    return m["chromedriver"], m["chrome_exe"], os.path.expandvars(m["profiles"]["scopus"])
+```
+
+An unregistered machine must **stop and ask to be registered**, never silently use another
+machine's profile. This registry is the single source for browser/driver/profile paths; the
+`Configuration reference` below reads from it rather than hardcoding.
+
 ## Rules
 
+- Always resolve Chrome, the chromedriver, and the profile from the machine registry by hostname;
+  never hardcode one machine's paths, and stop loudly on an unregistered machine.
 - Always kill Chrome and remove the LOCK file before building a new driver session.
 - Always snapshot poll directories before triggering the export, using the snapshot as baseline.
 - Never match `data-testid*="export"` as the export modal — require a count input inside the element.
@@ -67,8 +111,8 @@ and a Chrome restart between batches to prevent session-level export cap failure
 ## Configuration reference
 
 ```python
-CHROME_EXE  = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-PROFILE_DIR = r"C:\selenium\chrome-profile"   # BINDING — never change
+# Resolve per machine (see "Machine-aware profile and driver resolution"); do not hardcode.
+CHROMEDRIVER, CHROME_EXE, PROFILE_DIR = resolve_scopus()
 
 POLL_DIRS = [
     RAW_DIR / "_staging",

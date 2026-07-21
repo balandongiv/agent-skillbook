@@ -1,0 +1,3 @@
+name: telegram-pipeline-heartbeat
+description: Add a secret-safe Telegram heartbeat to any long-running pipeline. The state file contains no secrets. Sends tqdm-style progress bars, rich multi-section status messages, milestone alerts, and urgent notifications, with a restart-safe daemon that manages its own PID.
+instructions_file: ../SKILL.md

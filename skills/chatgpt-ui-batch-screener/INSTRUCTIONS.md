@@ -107,8 +107,21 @@ def extract_last_response(driver) -> str:
     """) or ""
 ```
 
+## Machine-aware profile and driver resolution
+
+This automation runs on a **small, fixed set of machines**. Resolve the Chrome binary, the
+WebDriver (`chromedriver.exe` from the shared `C:\Users\balan\IdeaProjects\academic_paper_maker\apm\browser`
+folder), and the ChatGPT profile **automatically by hostname** rather than hardcoding one
+machine's path. Use the same hostname-keyed `MACHINES` registry shared by the other Selenium
+skills in this project (see the `chatgpt-ui-reasoning` skill's `resolve_selenium("chatgpt")`),
+so the driver binaries are defined once and the ChatGPT profile stays separate from the Scopus
+profile. This machine (`rpb`) is filled in; the other two are `TODO` placeholders. An
+unregistered machine must stop and be registered, never fall back to another machine's profile.
+
 ## Rules
 
+- Resolve Chrome, the chromedriver, and the ChatGPT profile from the shared machine registry by
+  hostname; never hardcode one machine's path, and stop loudly on an unregistered machine.
 - Never use `is_displayed()`, `element.is_displayed()`, or any Selenium visibility method.
 - Always use the same Chrome profile as Scopus — never create a new profile.
 - Never run ChatGPT and Scopus automation simultaneously (shared Chrome profile).

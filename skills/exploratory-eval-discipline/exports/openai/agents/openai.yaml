@@ -1,0 +1,3 @@
+name: exploratory-eval-discipline
+description: Keep small-sample method comparisons honest — pre-register falsifiers before running, separate a leave-one-subject-out development split from a held-out evaluation split, require every candidate to beat the simplest baseline, and never state general performance from a small development split.
+instructions_file: ../SKILL.md

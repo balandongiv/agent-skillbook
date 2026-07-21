@@ -1,0 +1,3 @@
+name: latex-structure-enforcer
+description: Migrate flat or semi-flat LaTeX thesis files into the one-paragraph-per-file hierarchy. Every prose paragraph goes in p###/paragraph.tex, tables in tables/tab_NNN.tex, figures in figures/fig_NNN.tex, and chapter/section/subsection aggregators wire everything through \input{} chains with writing/-relative paths. Originals are archived, never deleted.
+instructions_file: ../SKILL.md

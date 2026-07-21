@@ -1,5 +1,12 @@
 # Changelog — Telegram Pipeline Heartbeat
 
+## [Unreleased]
+
+### Added
+- Back-filled the canonical `skill.yaml` (slug, title, summary, when_to_use, when_not_to_use,
+  tags, invocation, platform_overrides) that was missing from the initial commit.
+- Regenerated the OpenAI and Gemini exports so the skill passes validation.
+
 ## [0.1.0] - 2026-06-20
 
 ### Added

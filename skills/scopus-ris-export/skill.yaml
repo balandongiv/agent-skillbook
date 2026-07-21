@@ -1,0 +1,34 @@
+slug: scopus-ris-export
+title: Scopus RIS Export Automation
+summary: Automate Scopus Advanced Search and bulk RIS export using Selenium on a machine-resolved persistent Chrome profile. Avoids false-positive modal detection, polls three download directories, restarts Chrome between batches to dodge the per-session export cap, and falls back to per-year sub-queries when full exports exceed the result limit.
+when_to_use:
+  - when performing Scopus Advanced Search and bulk-exporting results as RIS via browser automation
+  - when downloads may land in one of several directories and must be polled from the filesystem
+  - when the Scopus per-session export cap requires restarting Chrome between batches
+  - when a large result set must be split into per-year sub-queries and de-duplicated
+  - when the automation runs across several fixed machines and must resolve the driver and profile per machine automatically
+  - when a persistent pre-logged-in Chrome profile must be reused throughout the pipeline
+when_not_to_use:
+  - when a Scopus API or another citation database is available and preferable to UI automation
+  - when the task is analyzing already-exported references rather than exporting them
+  - when no bibliographic export is involved
+tags:
+  - scopus
+  - selenium
+  - ris-export
+  - literature-review
+  - automation
+  - web-scraping
+  - multi-machine
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
