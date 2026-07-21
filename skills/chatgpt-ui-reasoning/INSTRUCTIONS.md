@@ -11,6 +11,29 @@ verdict contract, and a preserved transcript for every response. It is the *thin
 counterpart to a coding agent — the UI proposes and evaluates ideas; it never becomes the
 source of ground truth.
 
+## Reusable implementation — run the smoke test first
+
+This skill **ships the working code** under `resources/`: `machine_profiles.py` (the
+hostname-keyed registry + resolver), `chatgpt_ui_session.py` (`ChatGPTSession`), and
+`smoke_chatgpt_ui.py` (the smoke gate). **Import it — do not re-write the Selenium plumbing
+each session.** The standing convention is that the **first action of any new session** that
+will drive the ChatGPT UI (or any common Selenium script here) is to run the smoke gate:
+
+```bash
+python resources/smoke_chatgpt_ui.py    # exit 0 = proceed; non-zero = STOP
+```
+
+If the smoke gate fails (login lost, driver/Chrome mismatch, locked profile), do **no**
+ChatGPT-driven work until it passes — fix the session first. Once it passes, use the shipped
+session directly:
+
+```python
+from chatgpt_ui_session import ChatGPTSession   # with resources/ on sys.path
+with ChatGPTSession() as s:                      # profile auto-resolved for this machine
+    s.new_chat()                                 # fresh context per item, same browser
+    reply = s.ask("your reasoning / triage prompt")
+```
+
 ## Core principles
 
 1. **Reuse one browser, open a new chat per item.** Do not launch a fresh browser for every
@@ -118,6 +141,10 @@ Notes:
 
 ## Rules
 
+- Always run `resources/smoke_chatgpt_ui.py` first in a new session; if it fails, do no
+  ChatGPT-driven work until it passes.
+- Always import the shipped `ChatGPTSession` / resolver from `resources/`; never re-implement
+  the Selenium plumbing from scratch.
 - Always resolve the browser, drivers, and profile from the machine registry by hostname; never
   hardcode a single machine's paths, and stop loudly on an unregistered machine.
 - Always reuse one browser and open a new chat per item; never relaunch the browser per item.

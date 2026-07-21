@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-07-21
+
+### Added
+- `chatgpt-ui-reasoning`: shipped the reusable implementation under the skill's `resources/`
+  (`machine_profiles.py` registry + resolver, `chatgpt_ui_session.py` `ChatGPTSession`, and a
+  `smoke_chatgpt_ui.py` gate with a `README.md`), so agents import it instead of re-writing the
+  Selenium plumbing each session. Established the standing convention to run the smoke gate as the
+  first action of any new ChatGPT-UI session (no ChatGPT-driven work until it passes). Verified
+  end-to-end on this machine: the smoke gate returned `SESSION OK` and a triage item parsed to a
+  `VERDICT` line.
+
 ## [0.4.0] - 2026-07-21
 
 ### Added

@@ -8,7 +8,7 @@ You are an expert assistant specialized in chatgpt ui reasoning session.
 
 ## Your role
 
-Drive the ChatGPT web UI through a persistent Selenium session for reasoning, ideation, and per-item triage — reuse one browser window, open a fresh chat per item, interact through JavaScript with click fallbacks, resolve the browser/driver/profile automatically per machine, and keep every transcript for audit.
+Drive the ChatGPT web UI through a persistent Selenium session for reasoning, ideation, and per-item triage — reuse one browser window, open a fresh chat per item, interact through JavaScript with click fallbacks, resolve the browser/driver/profile automatically per machine, and keep every transcript for audit. Ships a reusable session class and a smoke gate to run first.
 
 ## Instructions
 
@@ -24,6 +24,29 @@ browser, a fresh chat per item, JavaScript-only element interaction, a machine-p
 verdict contract, and a preserved transcript for every response. It is the *thinking*
 counterpart to a coding agent — the UI proposes and evaluates ideas; it never becomes the
 source of ground truth.
+
+## Reusable implementation — run the smoke test first
+
+This skill **ships the working code** under `resources/`: `machine_profiles.py` (the
+hostname-keyed registry + resolver), `chatgpt_ui_session.py` (`ChatGPTSession`), and
+`smoke_chatgpt_ui.py` (the smoke gate). **Import it — do not re-write the Selenium plumbing
+each session.** The standing convention is that the **first action of any new session** that
+will drive the ChatGPT UI (or any common Selenium script here) is to run the smoke gate:
+
+```bash
+python resources/smoke_chatgpt_ui.py    # exit 0 = proceed; non-zero = STOP
+```
+
+If the smoke gate fails (login lost, driver/Chrome mismatch, locked profile), do **no**
+ChatGPT-driven work until it passes — fix the session first. Once it passes, use the shipped
+session directly:
+
+```python
+from chatgpt_ui_session import ChatGPTSession   # with resources/ on sys.path
+with ChatGPTSession() as s:                      # profile auto-resolved for this machine
+    s.new_chat()                                 # fresh context per item, same browser
+    reply = s.ask("your reasoning / triage prompt")
+```
 
 ## Core principles
 
@@ -132,6 +155,10 @@ Notes:
 
 ## Rules
 
+- Always run `resources/smoke_chatgpt_ui.py` first in a new session; if it fails, do no
+  ChatGPT-driven work until it passes.
+- Always import the shipped `ChatGPTSession` / resolver from `resources/`; never re-implement
+  the Selenium plumbing from scratch.
 - Always resolve the browser, drivers, and profile from the machine registry by hostname; never
   hardcode a single machine's paths, and stop loudly on an unregistered machine.
 - Always reuse one browser and open a new chat per item; never relaunch the browser per item.
@@ -164,6 +191,7 @@ Apply these instructions when the user:
 - when screening or evaluating items one at a time (papers, ideas, hypotheses) against a running dedup ledger
 - when a persistent logged-in browser profile must be reused across many prompts efficiently
 - when the automation runs across several fixed machines and must pick the right profile and drivers per machine automatically
+- when a reusable session class and a smoke gate should be reused across sessions instead of rewriting Selenium plumbing
 - when every model response must be preserved verbatim for audit or historical keeping
 - when the same browser session is reused across items and a clean context is needed per item
 

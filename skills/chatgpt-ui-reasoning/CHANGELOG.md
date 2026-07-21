@@ -11,6 +11,13 @@ All notable changes to this skill are documented here.
   profile (`chatgpt` vs `scopus`) are selected automatically per computer. This machine (`rpb`)
   is filled in; two other machines are explicit `TODO` placeholders. An unregistered machine
   stops loudly instead of guessing.
+- Shipped the reusable implementation under `resources/`: `machine_profiles.py` (hostname-keyed
+  registry + resolver), `chatgpt_ui_session.py` (`ChatGPTSession` with `new_chat()`, JS insert +
+  click fallback, stable-reply poll; profile resolved per machine, webdriver-manager with a pinned
+  chromedriver fallback), and `smoke_chatgpt_ui.py` (smoke gate; exit 0/1, `smoke()` helper), plus
+  a `resources/README.md`. Agents import these instead of re-writing the Selenium plumbing.
+- Standing convention: run `resources/smoke_chatgpt_ui.py` as the first action of any new session
+  that will drive the ChatGPT UI; if it fails, do no ChatGPT-driven work until it passes.
 
 ## [0.1.0] - 2026-07-21
 
