@@ -1,0 +1,3 @@
+name: manuscript-artifact-provenance
+description: Keep every manuscript table and figure traceable to exactly one generator script and one source-of-truth results directory — name each script for the artifact it produces (figN_/tabN_), route all reads through a single shared data layer, and enforce the mapping with a machine-checkable manifest so stale runs and orphaned scripts cannot reach the paper.
+instructions_file: ../SKILL.md

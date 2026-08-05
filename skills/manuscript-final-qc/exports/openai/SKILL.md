@@ -29,24 +29,37 @@ and mechanically checks the output before submission or hand-off. It changes no 
    `pdflatex` -> `pdflatex`. Use the project's intended TeX/conda environment.
 2. **Undefined references/citations:** scan `main.log` for `undefined` (case-insensitive). Report the count and,
    if non-zero, the exact missing labels/keys. Target: 0.
-3. **Forbidden domain terms:** `pdftotext main.pdf - | grep -Ei '<project forbidden terms>'` (e.g. excluded
+3. **Silent source-level defects.** The dangerous LaTeX failures do not raise an error — they compile
+   cleanly with content missing. Scan the prose sources (excluding math mode, whole-line comments, and
+   command arguments) for:
+   - an **unescaped `%`**, which comments out the rest of the line and deletes it from the PDF;
+   - an **unescaped `_`** in text mode (raw session IDs, filenames), which fails with "Missing $ inserted";
+   - **stray control characters** — a shell heredoc turns the `\a` of `\addbibresource` into a literal
+     BEL byte (0x07), silently disabling the line and every citation that depended on it;
+   - **truncated `\ref` targets** such as `\ref{tab}` where a colon was dropped; cross-check every
+     `\ref`/`\cite` target against the set of real `\label`s and bibliography keys.
+   Never write LaTeX through a shell heredoc; use file-writing tools or a script file.
+4. **Forbidden domain terms:** `pdftotext main.pdf - | grep -Ei '<project forbidden terms>'` (e.g. excluded
    methods, removed datasets). Target: 0. Maintain the forbidden list per project.
-4. **Leaked draft/editorial notes:** grep the PDF text for placeholder/draft patterns —
+5. **Leaked draft/editorial notes:** grep the PDF text for placeholder/draft patterns —
    `TODO|FIXME|XXX|TBD|pending refresh|placeholder|lorem|we recommend|should be recomputed|draft|do not cite`.
    Any hit in rendered text is a defect (a real one bit a prior run: a "Pending refresh" table row + caption).
    Check both the offending row AND any caption/lead-in that references it.
-5. **Numeric spot-checks:** pull 3-5 headline numbers from tables/abstract and confirm each against its source
+6. **Numeric spot-checks:** pull 3-5 headline numbers from tables/abstract and confirm each against its source
    CSV/JSON (read the artifact, compare to the stated value at the stated precision). Report pass/fail per number.
-6. **Coverage:** confirm every `\input` table/figure resolves and is referenced; flag orphan tables/figures not
+7. **Coverage:** confirm every `\input` table/figure resolves and is referenced; flag orphan tables/figures not
    `\input` anywhere and any result discussed without a backing output (or vice versa).
-7. **Section-vs-implementation consistency** (when applicable): confirm the Method text matches the actual
+8. **Section-vs-implementation consistency** (when applicable): confirm the Method text matches the actual
    code/config (dataset counts, filters, epoch settings, metrics, statistics) — not an aspirational description.
-8. **Report** a single machine-readable verdict line plus a short markdown report. Re-run the full gate after any
+9. **Report** a single machine-readable verdict line plus a short markdown report. Re-run the full gate after any
    fix so the final PDF is the verified one.
 
 ## Rules
 
 - Always grep the rendered PDF text (`pdftotext`), not just the `.tex`, for forbidden terms and draft notes.
+- Always scan the prose sources for an unescaped `%`, an unescaped `_`, and stray control characters; a clean
+  exit code does not mean the content survived.
+- Never author LaTeX through a shell heredoc — escape sequences silently corrupt commands.
 - Always re-compile and re-check after fixing a leak — never report on a stale PDF.
 - Never "fix" a numeric mismatch by editing the manuscript number to match a guess; trace it to the artifact and,
   if they disagree, flag it for a content decision.
@@ -59,6 +72,8 @@ and mechanically checks the output before submission or hand-off. It changes no 
 - **Trusting "0 forbidden terms" as full QC** — the forbidden-term list rarely includes editorial/draft phrases.
 - **Reporting page count and stopping** — a clean compile can still contain wrong numbers or orphan floats.
 - **Compiling once** — undefined references often need the full `pdflatex -> biber -> pdflatex x2` cycle to clear.
+- **Treating a successful build as a pass** — an unescaped `%` deletes the rest of its line from the PDF without
+  any warning; the build succeeds and the content is simply gone.
 - **Editing the PDF's stale copy's source then reading the old PDF** — always recompile before the final grep.
 
 ## Additional guidance

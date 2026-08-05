@@ -1,0 +1,33 @@
+slug: manuscript-artifact-provenance
+title: Manuscript Artifact Provenance and Generator Naming
+summary: Keep every manuscript table and figure traceable to exactly one generator script and one source-of-truth results directory — name each script for the artifact it produces (figN_/tabN_), route all reads through a single shared data layer, and enforce the mapping with a machine-checkable manifest so stale runs and orphaned scripts cannot reach the paper.
+when_to_use:
+  - when a repository has accumulated analysis scripts and nobody can say which one produced a given table or figure
+  - when several run directories exist and it is unclear which one backs the published numbers
+  - when experiments were dropped from a paper and their scripts, configs and LaTeX sections must be removed cleanly
+  - when setting up a results pipeline that must stay reproducible as the manuscript is revised
+  - when a table or figure must be regenerated and you need to know exactly what to run
+when_not_to_use:
+  - when the project has a single script and a single output and the mapping is already obvious
+  - when the task is writing prose rather than producing or wiring artifacts
+  - when the analysis is exploratory and not destined for a manuscript
+tags:
+  - reproducibility
+  - manuscript
+  - provenance
+  - naming-convention
+  - data-pipeline
+  - experiment-hygiene
+  - refactoring
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

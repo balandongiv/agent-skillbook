@@ -1,0 +1,3 @@
+name: academic-latex-writer
+description: Draft manuscript prose by driving the ChatGPT web UI one paragraph at a time, writing LaTeX only, storing each paragraph in its own file, and enforcing a topic-sentence-first structure — with mechanical gates that reject any draft containing a number, citation key, or reference the supplied evidence packet does not support.
+instructions_file: ../SKILL.md

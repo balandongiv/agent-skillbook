@@ -4,8 +4,13 @@ All notable changes to this skill are documented here.
 
 ## [Unreleased]
 
-### Changed
-- No unreleased changes yet.
+### Added
+- Step 3, silent source-level defects: an unescaped `%` (comments out the rest of the line and
+  deletes it from the PDF without erroring), an unescaped `_` in text mode, stray control
+  characters from shell-heredoc escape corruption (`\a` in `\addbibresource` becoming a literal
+  BEL byte), and truncated `\ref` targets with a dropped colon.
+- Rules: scan prose sources for these; never author LaTeX through a shell heredoc.
+- Common mistake: treating a successful build as a pass when content was silently removed.
 
 ## [0.1.0] - 2026-06-17
 

@@ -1,0 +1,36 @@
+slug: academic-latex-writer
+title: Academic LaTeX Paragraph Writer (ChatGPT UI)
+summary: Draft manuscript prose by driving the ChatGPT web UI one paragraph at a time, writing LaTeX only, storing each paragraph in its own file, and enforcing a topic-sentence-first structure — with mechanical gates that reject any draft containing a number, citation key, or reference the supplied evidence packet does not support.
+when_to_use:
+  - when writing or rewriting manuscript prose (results, discussion, introduction, abstract, conclusion) that must be LaTeX
+  - when every paragraph must live in its own .tex file wired through \input{} rather than in one large file
+  - when each paragraph must open with a topic sentence and carry a transition from the preceding paragraph
+  - when the prose must contain only numbers that come from verified artifacts and only citation keys that resolve in the bibliography
+  - when reasoning/drafting is routed to the ChatGPT web UI rather than an API
+  - when an existing section needs a structural revision pass without altering any of its claims or values
+when_not_to_use:
+  - when the numbers themselves are not yet computed or verified — compute and verify them first
+  - when the task is migrating an existing flat LaTeX file into the one-paragraph-per-file layout (use latex-structure-enforcer)
+  - when the task is the final compile-and-check gate on a rendered PDF (use manuscript-final-qc)
+  - when the output is not LaTeX
+tags:
+  - academic-writing
+  - latex
+  - chatgpt-ui
+  - manuscript
+  - topic-sentence
+  - paragraph-structure
+  - verification-gate
+  - provenance
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true
