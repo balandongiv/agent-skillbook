@@ -7,13 +7,55 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-07-21
+
+### Added
+- New skill `agent-orchestration-manager`: how to be the manager of a multi-agent workflow —
+  route by kind of work (reason/code/verify), delegate-vs-inline judgment, decompose into bounded
+  independent tasks, specify-don't-hope task specs with environment provisioning, verify every
+  worker's output yourself (never trust the report), stay the manager (no silent hand-edits), own
+  the mainline and consolidation, and report truthfully. Umbrella over `codex-driven-coding`,
+  `worktree-parallel-agents`, and `chatgpt-ui-reasoning`.
+- Rendered Claude/OpenAI/Gemini exports for the new skill.
+
+## [0.4.1] - 2026-07-21
+
+### Added
+- `chatgpt-ui-reasoning`: shipped the reusable implementation under the skill's `resources/`
+  (`machine_profiles.py` registry + resolver, `chatgpt_ui_session.py` `ChatGPTSession`, and a
+  `smoke_chatgpt_ui.py` gate with a `README.md`), so agents import it instead of re-writing the
+  Selenium plumbing each session. Established the standing convention to run the smoke gate as the
+  first action of any new ChatGPT-UI session (no ChatGPT-driven work until it passes). Verified
+  end-to-end on this machine: the smoke gate returned `SESSION OK` and a triage item parsed to a
+  `VERDICT` line.
+
+## [0.4.0] - 2026-07-21
+
 ### Added
 - New skill `manuscript-final-qc`: a final pre-submission compile gate (clean compile; zero undefined
   cites/refs; zero forbidden domain terms; zero leaked draft/editorial notes in the *rendered* PDF; numeric
   spot-checks vs source artifacts; float-coverage check; verify-don't-edit). Derived from a real defect where a
   "Pending refresh" draft note rendered into a published table.
+- Five new canonical skills derived from a multi-agent blink-detection integration workflow:
+  `chatgpt-ui-reasoning` (drive the ChatGPT web UI via a persistent Selenium session for reasoning/
+  ideation/per-item triage — reuse one browser, new chat per item, JS interaction with click
+  fallbacks, machine-aware profile/driver resolution, kept transcripts), `codex-driven-coding`
+  (delegate coding to an autonomous code agent at a task-matched intelligence tier behind a bounded
+  written handoff, with environment provisioning, escalate-don't-blind-retry, and a verifying
+  manager), `worktree-parallel-agents` (parallel agents in isolated git worktrees — one branch each,
+  provisioned config, assemble-not-raw-merge, deterministic teardown), `exploratory-eval-discipline`
+  (honest small-sample method comparison — pre-registered falsifiers, LOSO-dev vs sealed held-out,
+  must-beat-baseline, exploratory caveats), and `algorithm-provenance-docs` (fixed per-algorithm
+  integration report so future agents can evaluate/modify without git archaeology).
+- Rendered Claude/OpenAI/Gemini exports for all five new skills.
 
 ### Changed
+- `chatgpt-ui-batch-screener` and `scopus-ris-export`: added a shared, hostname-keyed
+  "Machine-aware profile and driver resolution" (a `MACHINES` registry + resolver) so the Chrome
+  binary, WebDrivers (chromedriver/geckodriver from the shared `academic_paper_maker\apm\browser`
+  folder), and per-task profile are selected automatically per computer; `scopus-ris-export` now
+  reads its browser/profile paths from the resolver instead of hardcoding. Consolidates the Selenium
+  automation into skillbook skills so the `academic_paper_maker` code is no longer the source.
 - `telegram-heartbeat`: added a "Start-of-task checklist (do this FIRST)" — start the daemon + send a startup
   ping as the first actions; the daemon logs only failures (silence = success). Prevents the recurring
   "no heartbeat received" miss (notifier never started, not broken).
@@ -27,6 +69,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   read/write canonical files with explicit `encoding="utf-8"` — previously crashed (`UnicodeDecodeError`) on
   non-ASCII content under platform default (e.g. Windows cp1252).
 - Regenerated Claude/OpenAI/Gemini exports for the changed skills.
+
+### Fixed
+- Back-filled the missing canonical `skill.yaml` for five skills that had been committed without one
+  (`chatgpt-ui-batch-screener`, `evidence-driven-thesis-writer`, `latex-structure-enforcer`,
+  `scopus-ris-export`, `telegram-pipeline-heartbeat`) and regenerated their OpenAI/Gemini exports, so
+  `agent-skillbook validate` and the full test suite pass again.
 
 ## [0.3.0] - 2026-06-17
 

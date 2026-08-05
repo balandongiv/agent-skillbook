@@ -1,0 +1,3 @@
+name: chatgpt-ui-reasoning
+description: Drive the ChatGPT web UI through a persistent Selenium session for reasoning, ideation, and per-item triage — reuse one browser window, open a fresh chat per item, interact through JavaScript with click fallbacks, resolve the browser/driver/profile automatically per machine, and keep every transcript for audit. Ships a reusable session class and a smoke gate to run first.
+instructions_file: ../SKILL.md

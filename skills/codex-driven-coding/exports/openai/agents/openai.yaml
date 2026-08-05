@@ -1,0 +1,3 @@
+name: codex-driven-coding
+description: Route code changes to an autonomous coding agent (e.g. OpenAI Codex) at a task-matched intelligence tier — cheap/fast tiers for boilerplate, high-reasoning tiers for algorithm or debugging work, escalate on failure — behind a bounded written handoff, while a separate planning/verifying model owns scope, provisions the environment, and never hand-edits the worker's code.
+instructions_file: ../SKILL.md

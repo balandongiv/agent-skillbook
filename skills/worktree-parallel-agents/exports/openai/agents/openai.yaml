@@ -1,0 +1,3 @@
+name: worktree-parallel-agents
+description: Run independent agent workstreams in isolated git worktrees — one branch per workstream, git-ignored runtime config (e.g. paths.yaml) copied into each tree, workers that never merge to the mainline — and consolidate later by assembling files rather than raw-merging.
+instructions_file: ../SKILL.md

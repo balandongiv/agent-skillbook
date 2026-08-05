@@ -1,0 +1,3 @@
+name: chatgpt-ui-batch-screener
+description: Automate the ChatGPT web UI via Selenium to screen academic papers in batches of 5. Uses pure JavaScript for all element checks (never is_displayed()), polls for streaming completion, extracts decisions as JSON, and saves raw fallbacks. Shares a persistent Chrome profile with Scopus — never run the two simultaneously.
+instructions_file: ../SKILL.md

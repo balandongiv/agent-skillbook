@@ -19,3 +19,6 @@ htmlcov/
 Thumbs.db
 /.idea/modules.xml
 /skills/code-readability-best-practices/exports/openai/agents/openai.yaml
+
+# Transient ChatGPT-UI Selenium artifacts (screenshots, smoke reports)
+chatgpt_ui_artifacts/

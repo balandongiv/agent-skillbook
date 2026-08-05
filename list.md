@@ -3,7 +3,7 @@
 All reusable skills in this repository and what each is for. Edit the canonical files under
 `skills/<slug>/` and run `python -m agent_skillbook.cli render` to regenerate the platform exports.
 
-_26 skills (purpose text taken from each skill's `skill.yaml` summary)._
+_31 skills (purpose text taken from each skill's `skill.yaml` summary)._
 
 | Skill | Purpose |
 |---|---|
@@ -33,3 +33,8 @@ _26 skills (purpose text taken from each skill's `skill.yaml` summary)._
 | `telegram-heartbeat` | Add a secret-safe Telegram heartbeat and notification layer to a long-running agent, with periodic health heartbeats, immediate urgent alerts, milestone updates, and anti-spam rate limiting. |
 | `write-discussion-section` | Draft or revise a discussion section that interprets the reported results without overclaiming, using hedged causal and novelty language, an honest limitations paragraph, and no numbers beyond those already in the results. |
 | `write-results-section` | Draft or revise a results section as factual, number-grounded prose where every figure comes from verified artifacts (CSV/stats files), every table and figure is referenced and explained, and no number is invented. |
+| `scopus-ris-export` | Automate Scopus Advanced Search and bulk RIS export using Selenium. Avoids false-positive modal detection, polls three download directories, restarts Chrome between batches, and falls back to per-year sub-queries when full exports fail. |
+| `latex-structure-enforcer` | Migrate flat LaTeX thesis files into the one-paragraph-per-file hierarchy. Every prose paragraph goes in `p###/paragraph.tex`, tables in `tables/tab_NNN.tex`, and chapter/section/subsection aggregators wire everything through `\input{}` chains with `writing/`-relative paths. |
+| `telegram-pipeline-heartbeat` | Add secret-safe Telegram heartbeat to any long-running pipeline. State file contains no secrets. Sends tqdm-style progress bars, rich multi-section status messages, milestone alerts, and urgent notifications with PID-managed daemon restart. |
+| `chatgpt-ui-batch-screener` | Automate ChatGPT web UI via Selenium to screen academic papers in batches of 5. Uses pure JS for all element checks (never `is_displayed()`), polls for streaming completion, extracts decisions as JSON, and saves raw fallbacks. Shares Chrome profile with Scopus — never run simultaneously. |
+| `evidence-driven-thesis-writer` | Write academic thesis prose grounded in a SQLite evidence database. Evidence records must exist before any section is written. Bibtex keys use `paper_{id}` placeholders until BibTeX is generated. Output follows one-paragraph-per-file LaTeX structure. |

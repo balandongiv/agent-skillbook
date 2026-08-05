@@ -1,0 +1,3 @@
+name: scopus-ris-export
+description: Automate Scopus Advanced Search and bulk RIS export using Selenium on a machine-resolved persistent Chrome profile. Avoids false-positive modal detection, polls three download directories, restarts Chrome between batches to dodge the per-session export cap, and falls back to per-year sub-queries when full exports exceed the result limit.
+instructions_file: ../SKILL.md

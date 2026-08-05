@@ -2,7 +2,7 @@
 
 **Reusable custom skills for agents, with templates and guides.**
 
-Status: Active | Version: 0.3.0 | License: MIT | Python: >=3.9
+Status: Active | Version: 0.5.0 | License: MIT | Python: >=3.9
 
 ---
 

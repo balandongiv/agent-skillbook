@@ -1,0 +1,32 @@
+slug: exploratory-eval-discipline
+title: Exploratory Evaluation Discipline
+summary: Keep small-sample method comparisons honest — pre-register falsifiers before running, separate a leave-one-subject-out development split from a held-out evaluation split, require every candidate to beat the simplest baseline, and never state general performance from a small development split.
+when_to_use:
+  - when comparing detectors, features, or models on a small research dataset with few subjects
+  - when a new method must be judged against a simple existing baseline before it is believed
+  - when results risk being over-claimed as general performance from a tiny development split
+  - when a method could be passing by leaking a trivially correlated signal rather than real skill
+  - when planning dev vs held-out splits and pre-registered pass/fail criteria for an experiment
+when_not_to_use:
+  - when working with a large, well-powered benchmark where standard held-out reporting already applies
+  - when the task is production model monitoring rather than exploratory method comparison
+  - when no evaluation or comparison is involved (pure implementation or refactoring)
+tags:
+  - evaluation
+  - falsifiers
+  - baseline
+  - leave-one-subject-out
+  - held-out
+  - honest-reporting
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

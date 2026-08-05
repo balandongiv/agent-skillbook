@@ -1,0 +1,32 @@
+slug: evidence-driven-thesis-writer
+title: Evidence-Driven Thesis Writer
+summary: Write academic thesis prose grounded in a SQLite evidence database. Evidence records must exist before any section is written. BibTeX keys use paper_{id} placeholders until a real BibTeX file is generated. Output follows a one-paragraph-per-file LaTeX structure. Target-label columns (TWF, HDF, PWF, OSF, RNF) are never used as model input features.
+when_to_use:
+  - when writing thesis or dissertation prose that must trace every claim to a screened-paper evidence record
+  - when a SQLite evidence database drives what can be written per chapter section
+  - when citations must stay as placeholder keys until a real BibTeX file exists
+  - when prose output must follow a one-paragraph-per-file LaTeX hierarchy
+  - when a machine-learning write-up must avoid treating target-label columns as input features
+when_not_to_use:
+  - when drafting informal prose that does not require an auditable evidence trail
+  - when there is no evidence database or screening pipeline backing the writing
+  - when the task is data analysis or modeling rather than thesis writing
+tags:
+  - thesis-writing
+  - evidence-grounding
+  - citations
+  - latex
+  - sqlite
+  - academic-writing
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

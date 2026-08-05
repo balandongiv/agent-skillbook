@@ -1,0 +1,36 @@
+slug: chatgpt-ui-reasoning
+title: ChatGPT UI Reasoning Session
+summary: Drive the ChatGPT web UI through a persistent Selenium session for reasoning, ideation, and per-item triage — reuse one browser window, open a fresh chat per item, interact through JavaScript with click fallbacks, resolve the browser/driver/profile automatically per machine, and keep every transcript for audit. Ships a reusable session class and a smoke gate to run first.
+when_to_use:
+  - when the workflow routes thinking/ideation/triage (not code execution) to the ChatGPT web UI instead of an API
+  - when screening or evaluating items one at a time (papers, ideas, hypotheses) against a running dedup ledger
+  - when a persistent logged-in browser profile must be reused across many prompts efficiently
+  - when the automation runs across several fixed machines and must pick the right profile and drivers per machine automatically
+  - when a reusable session class and a smoke gate should be reused across sessions instead of rewriting Selenium plumbing
+  - when every model response must be preserved verbatim for audit or historical keeping
+  - when the same browser session is reused across items and a clean context is needed per item
+when_not_to_use:
+  - when an official API or SDK is available and programmatic, rate-limited access is preferable to UI automation
+  - when the task is bulk JSON batch extraction of many items per prompt rather than single-item reasoning
+  - when the task is writing or executing code rather than eliciting reasoning
+tags:
+  - chatgpt-ui
+  - selenium
+  - reasoning
+  - triage
+  - automation
+  - audit-trail
+  - multi-machine
+  - smoke-test
+invocation:
+  auto: true
+  explicit: true
+platform_overrides:
+  claude:
+    disable_model_invocation: false
+    user_invocable: true
+    allowed_tools: []
+  openai:
+    include_openai_yaml: true
+  gemini:
+    manual_selection: true

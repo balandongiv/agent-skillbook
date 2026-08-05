@@ -1,0 +1,3 @@
+name: evidence-driven-thesis-writer
+description: Write academic thesis prose grounded in a SQLite evidence database. Evidence records must exist before any section is written. BibTeX keys use paper_{id} placeholders until a real BibTeX file is generated. Output follows a one-paragraph-per-file LaTeX structure. Target-label columns (TWF, HDF, PWF, OSF, RNF) are never used as model input features.
+instructions_file: ../SKILL.md
